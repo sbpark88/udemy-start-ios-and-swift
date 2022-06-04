@@ -11,15 +11,19 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var diceImageViewOne: UIImageView!
     @IBOutlet weak var diceImageViewTwo: UIImageView!
-    
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        diceImageViewOne.image = #imageLiteral(resourceName: "DiceSix")
+        changeDiceImage(imageView: diceImageViewOne, imageName: "DiceSix")
+        changeDiceImage(imageView: diceImageViewTwo, imageName: "DiceTwo")
+
         diceImageViewOne.alpha = 0.5
-        
-        diceImageViewTwo.image = #imageLiteral(resourceName: "DiceTwo")
     }
-    
+
+    private func changeDiceImage(imageView: UIImageView, imageName: String) {
+        imageView.image = #imageLiteral(resourceName: imageName)
+    }
+
 }
 
