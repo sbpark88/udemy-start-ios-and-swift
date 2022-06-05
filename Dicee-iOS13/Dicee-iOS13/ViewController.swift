@@ -15,15 +15,30 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // change to functional programming
         changeDiceImage(imageView: diceImageViewOne, imageName: "DiceSix")
         changeDiceImage(imageView: diceImageViewTwo, imageName: "DiceTwo")
 
-        diceImageViewOne.alpha = 0.5
+        // change to closure
+        let halfOpacity: () -> () = setOpacity(imageView: diceImageViewOne, opacityRatio: 0.5);
+        halfOpacity();
+        let eightyOpacity: () -> () = setOpacity(imageView: diceImageViewTwo, opacityRatio: 0.8);
+        eightyOpacity();
     }
 
     private func changeDiceImage(imageView: UIImageView, imageName: String) {
         imageView.image = #imageLiteral(resourceName: imageName)
     }
+
+    private func setOpacity(imageView: UIImageView, opacityRatio: Float) -> () -> () {
+        func set() {
+            imageView.alpha = CGFloat(opacityRatio)
+        }
+
+        return set;
+    }
+
 
 }
 
