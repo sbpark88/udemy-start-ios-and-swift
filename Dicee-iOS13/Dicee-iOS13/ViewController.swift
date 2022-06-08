@@ -12,6 +12,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var diceImageViewOne: UIImageView!
     @IBOutlet weak var diceImageViewTwo: UIImageView!
 
+    private let diceArray: Array<String> = ["DiceOne",
+                                            "DiceTwo",
+                                            "DiceThree",
+                                            "DiceFour",
+                                            "DiceFive",
+                                            "DiceSix"]
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +34,7 @@ class ViewController: UIViewController {
         eightyOpacity();
     }
 
+
     private func changeDiceImage(imageView: UIImageView, imageName: String) {
         imageView.image = #imageLiteral(resourceName: imageName)
     }
@@ -35,15 +44,18 @@ class ViewController: UIViewController {
             imageView.alpha = CGFloat(opacityRatio)
         }
 
-        return set;
+        return set
     }
-    
+
     @IBAction func rollButtonPressed(_ sender: UIButton) {
-        changeDiceImage(imageView: diceImageViewOne, imageName: "DiceFour")
-    
+        changeDiceImage(imageView: diceImageViewOne, imageName: diceArray.randomElement() ?? "DiceOne")
+        changeDiceImage(imageView: diceImageViewTwo, imageName: diceArray.randomElement() ?? "DiceOne")
+
         let diceOneFullyOpacity: () -> () = setOpacity(imageView: diceImageViewOne, opacityRatio: 1.0)
+        let diceTwoFullyOpacity: () -> () = setOpacity(imageView: diceImageViewTwo, opacityRatio: 1.0)
         diceOneFullyOpacity()
+        diceTwoFullyOpacity()
     }
-    
+
 }
 
