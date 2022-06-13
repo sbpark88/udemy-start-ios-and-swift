@@ -9,18 +9,33 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+
     @IBOutlet weak var diceImageView1: UIImageView!
     @IBOutlet weak var diceImageView2: UIImageView!
-    
+
     @IBAction func rollButtonPressed(_ sender: UIButton) {
-        
-        let allDice = [#imageLiteral(resourceName: "DiceOne"), #imageLiteral(resourceName: "DiceTwo"), #imageLiteral(resourceName: "DiceThree"), #imageLiteral(resourceName: "DiceFour"), #imageLiteral(resourceName: "DiceFive"), #imageLiteral(resourceName: "DiceSix")]
-        
-        diceImageView1.image = allDice[Int.random(in: 0...5)]
-        diceImageView2.image = allDice[Int.random(in: 0...5)]
-        
+
+        let allDice: Array<String> = ["DiceOne",
+                                      "DiceTwo",
+                                      "DiceThree",
+                                      "DiceFour",
+                                      "DiceFive",
+                                      "DiceSix"]
+
+
+        guard let element = allDice.randomElement() else {
+            fatalError("guard failure handling has not been implemented")
+        }
+        changeDiceImage(imageView: diceImageView1, imageName: element)
+        if let element = allDice.randomElement() {
+            changeDiceImage(imageView: diceImageView2, imageName: element)
+        }
+
     }
-    
+
+    private func changeDiceImage(imageView: UIImageView, imageName: String) {
+        imageView.image = #imageLiteral(resourceName: imageName)
+    }
+
 }
 
