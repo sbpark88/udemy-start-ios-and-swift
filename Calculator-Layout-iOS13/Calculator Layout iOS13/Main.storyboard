@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -24,7 +23,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="135.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 0  " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gC2-i9-XzD">
-                                                <rect key="frame" x="0.0" y="0.0" width="394" height="135.5"/>
+                                                <rect key="frame" x="20" y="0.0" width="374" height="135.5"/>
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="20"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="50"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -34,7 +33,7 @@
                                         <constraints>
                                             <constraint firstItem="gC2-i9-XzD" firstAttribute="trailing" secondItem="MaP-DS-T6x" secondAttribute="trailing" constant="-20" id="4L9-Ny-S6Z"/>
                                             <constraint firstItem="gC2-i9-XzD" firstAttribute="bottom" secondItem="MaP-DS-T6x" secondAttribute="bottom" id="68W-7E-pPd"/>
-                                            <constraint firstItem="gC2-i9-XzD" firstAttribute="leading" secondItem="MaP-DS-T6x" secondAttribute="leading" id="boM-8V-4xf"/>
+                                            <constraint firstItem="gC2-i9-XzD" firstAttribute="leading" secondItem="MaP-DS-T6x" secondAttribute="leading" constant="20" id="boM-8V-4xf"/>
                                             <constraint firstItem="gC2-i9-XzD" firstAttribute="top" secondItem="MaP-DS-T6x" secondAttribute="top" id="hjm-K4-cQh"/>
                                         </constraints>
                                     </view>
@@ -189,26 +188,14 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="LtW-GU-hTX" userLabel="Sixth View">
                                         <rect key="frame" x="0.0" y="682.5" width="414" height="135.5"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sGf-bU-cfA">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fU1-W1-Eu8">
                                                 <rect key="frame" x="0.0" y="0.0" width="206.5" height="135.5"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fU1-W1-Eu8">
-                                                        <rect key="frame" x="0.0" y="0.0" width="206.5" height="135.5"/>
-                                                        <color key="backgroundColor" red="0.1137254902" green="0.60784313729999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                        <state key="normal" title="0">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="fU1-W1-Eu8" firstAttribute="leading" secondItem="sGf-bU-cfA" secondAttribute="leading" id="HWE-ct-cWu"/>
-                                                    <constraint firstItem="fU1-W1-Eu8" firstAttribute="bottom" secondItem="sGf-bU-cfA" secondAttribute="bottom" id="O5E-nY-ZeD"/>
-                                                    <constraint firstItem="fU1-W1-Eu8" firstAttribute="trailing" secondItem="sGf-bU-cfA" secondAttribute="trailing" id="RLN-0c-S1t"/>
-                                                    <constraint firstItem="fU1-W1-Eu8" firstAttribute="top" secondItem="sGf-bU-cfA" secondAttribute="top" id="U4w-X0-Ijm"/>
-                                                </constraints>
-                                            </view>
+                                                <color key="backgroundColor" red="0.1137254902" green="0.60784313729999995" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <state key="normal" title="0">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="MeR-Zs-nJ0">
                                                 <rect key="frame" x="207.5" y="0.0" width="206.5" height="135.5"/>
                                                 <subviews>
@@ -250,9 +237,4 @@
             <point key="canvasLocation" x="136.23188405797103" y="132.58928571428572"/>
         </scene>
     </scenes>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>
