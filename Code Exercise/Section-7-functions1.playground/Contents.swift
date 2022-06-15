@@ -97,7 +97,21 @@ start()
 
 //Write your code here:
 
+//let downAndRight: () -> () = {() in
+//    down()
+//    right()
+//}
 
+let downAndRight = {() in
+    down()
+    right()
+}
+
+downAndRight()
+downAndRight()
+downAndRight()
+downAndRight()
+down()
 
 
 //Don't change the code below this line.
