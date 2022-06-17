@@ -17,12 +17,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    @IBAction func pressRedC(_ sender: Any) {
-        playSound()
+    // IBAction: Interface Builder Action
+    @IBAction func pressKey(_ sender: UIButton) {
+        // Different ways to get the title of the UIButton.
+        print("sender.currentTitle ?? \"\" -> \(sender.currentTitle ?? "")")
+        print("sender.titleLabel?.text ?? \"\" -> \(sender.titleLabel?.text ?? "")")
+        print("sender.title(for: .normal) ?? \"\" -> \(sender.title(for: .normal) ?? "")")
+
+        // the left of the colon, code is the parameter
+        // the right of the colon, sender.currentTitle is the argument
+        // parameters is the name of the function
+        playSound(code: sender.currentTitle!)
     }
 
-    func playSound() {
-        guard let url = Bundle.main.url(forResource: "C", withExtension: "wav") else {
+    // code is the name of a parameter, String is the data type of a parameter
+    func playSound(code: String) {
+        guard let url = Bundle.main.url(forResource: code, withExtension: "wav") else {
             return
         }
 
