@@ -20,18 +20,23 @@ class ViewController: UIViewController {
     // IBAction: Interface Builder Action
     @IBAction func pressKey(_ sender: UIButton) {
         // Different ways to get the title of the UIButton.
+        /*
         print("sender.currentTitle ?? \"\" -> \(sender.currentTitle ?? "")")
         print("sender.titleLabel?.text ?? \"\" -> \(sender.titleLabel?.text ?? "")")
         print("sender.title(for: .normal) ?? \"\" -> \(sender.title(for: .normal) ?? "")")
+         */
 
         // the left of the colon, code is the parameter
         // the right of the colon, sender.currentTitle is the argument
         // parameters is the name of the function
+
         playSound(code: sender.currentTitle!)
+        setButtonOpacity(button: sender, opacity: 0.5)
+        setTimer(button: sender)
     }
 
     // code is the name of a parameter, String is the data type of a parameter
-    func playSound(code: String) {
+    private func playSound(code: String) {
         guard let url = Bundle.main.url(forResource: code, withExtension: "wav") else {
             return
         }
@@ -56,5 +61,15 @@ class ViewController: UIViewController {
             print(error.localizedDescription)
         }
     }
+
+    private func setButtonOpacity(button: UIButton, opacity: Double) -> Void {
+        button.alpha = opacity
+    }
+
+    private func setTimer(button: UIButton) -> Void {
+        print("Start")
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: { _ in print("ENd"); button.alpha = 1 })
+    }
+
 }
 
