@@ -29,7 +29,6 @@ class ViewController: UIViewController {
         // the left of the colon, code is the parameter
         // the right of the colon, sender.currentTitle is the argument
         // parameters is the name of the function
-
         playSound(code: sender.currentTitle!)
         setButtonOpacity(button: sender, opacity: 0.5)
         setTimer(button: sender)
@@ -68,7 +67,13 @@ class ViewController: UIViewController {
 
     private func setTimer(button: UIButton) -> Void {
         print("Start")
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: { _ in print("ENd"); button.alpha = 1 })
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: { _ in print("End"); button.alpha = 1 })
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//            print("End")
+//            button.alpha = 1
+        }
+
     }
 
 }
