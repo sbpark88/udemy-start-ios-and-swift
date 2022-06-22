@@ -49,6 +49,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="101" height="218.66666666666666"/>
                                                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="18"/>
                                                         <state key="normal" title="Soft"/>
+                                                        <connections>
+                                                            <action selector="pressButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1gB-0v-U5t"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -72,6 +75,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="101" height="218.66666666666666"/>
                                                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="18"/>
                                                         <state key="normal" title="Medium"/>
+                                                        <connections>
+                                                            <action selector="pressButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XYj-C9-K0X"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -95,6 +101,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="101" height="218.66666666666666"/>
                                                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="18"/>
                                                         <state key="normal" title="Hard"/>
+                                                        <connections>
+                                                            <action selector="pressButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BTx-ax-Fhg"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
