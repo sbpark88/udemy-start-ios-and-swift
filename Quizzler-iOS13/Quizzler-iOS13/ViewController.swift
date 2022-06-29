@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     var quiz: [Question] = []
     
     var questionNumber = 0
+    var quizSize: Float = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +39,8 @@ class ViewController: UIViewController {
             Question(q: "The loudest sound produced by any animal is 188 decibels. That animal is the African Elephant.", a: "False"),
             Question(q: "No piece of square dry paper can be folded in half more than 7 times.", a: "False"),
             Question(q: "Chocolate affects a dog's heart and nervous system; a few ounces are enough to kill a small dog.", a: "True")
-            
         ]
+        quizSize = Float(quiz.count)
         
         printQuiz(number: questionNumber)
     }
@@ -56,7 +57,7 @@ class ViewController: UIViewController {
         ? questionNumber + 1
         : 0
         
-        // I do not neet to bind this Timer to the outside variable due to it does not repeat,
+        // I do not need to bind this Timer to the outside variable due to it does not repeat,
         // thus I cannot have to expire previous trigger.
         Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [self] Timer in
             printQuiz(number: questionNumber)
@@ -69,6 +70,8 @@ class ViewController: UIViewController {
         trueButton.backgroundColor = .none
         falseButton.backgroundColor = nil
 //        falseButton.backgroundColor = UIColor.clear
+        
+        progressBar.progress = Float(number + 1) / quizSize
     }
     
 }
