@@ -9,19 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
-
+    
     let _true = "True"
     let _false = "False"
-
+    
     var quiz: [Question] = []
-
+    
     var questionNumber = 0
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -38,28 +38,38 @@ class ViewController: UIViewController {
             Question(q: "The loudest sound produced by any animal is 188 decibels. That animal is the African Elephant.", a: "False"),
             Question(q: "No piece of square dry paper can be folded in half more than 7 times.", a: "False"),
             Question(q: "Chocolate affects a dog's heart and nervous system; a few ounces are enough to kill a small dog.", a: "True")
-
+            
         ]
-
+        
         printQuiz(number: questionNumber)
     }
-
+    
     @IBAction func answerButtonPressed(_ sender: UIButton) {
         let userAnswer = sender.currentTitle
         let actualAnswer = quiz[questionNumber].answer
-
-        userAnswer == actualAnswer ? print("Right") : print("Wrong!")
-
+        
+        sender.backgroundColor = userAnswer == actualAnswer
+        ? UIColor.green
+        : UIColor.red
+        
         questionNumber = questionNumber + 1 < quiz.count
-                ? questionNumber + 1
-                : 0
-
-        printQuiz(number: questionNumber)
+        ? questionNumber + 1
+        : 0
+        
+        // I do not neet to bind this Timer to the outside variable due to it does not repeat,
+        // thus I cannot have to expire previous trigger.
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [self] Timer in
+            printQuiz(number: questionNumber)
+        }
     }
-
+    
     private func printQuiz(number: Int) {
         questionLabel.text = quiz[number].text
+        // Set default is able to '.none' or 'nil' or 'UIColor.claer'
+        trueButton.backgroundColor = .none
+        falseButton.backgroundColor = nil
+//        falseButton.backgroundColor = UIColor.clear
     }
-
+    
 }
 
