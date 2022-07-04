@@ -27,15 +27,25 @@ struct QuizBrain {
         Question(question: "Chocolate affects a dog's heart and nervous system; a few ounces are enough to kill a small dog.", answer: "True")
     ]
     let quizCount: Int
-    var questionNumber = 0
+    var questionNumber: Int = 0
+    var rightAnswer: Int = 0
 
     init() {
         quizCount = quiz.count
     }
 
+    func getScore() -> Int {
+        rightAnswer
+    }
+
     // answer : argument labels, userAnswer : parameters
-    func checkAnswer(answer userAnswer: String) -> Bool {
-        userAnswer == quiz[questionNumber].answer ? true : false
+    mutating func checkAnswer(answer userAnswer: String) -> Bool {
+        if userAnswer == quiz[questionNumber].answer {
+            rightAnswer += 1
+            return true
+        } else {
+            return false
+        }
     }
 
     func getCurrentQuestion() -> String {
@@ -43,10 +53,11 @@ struct QuizBrain {
     }
 
     mutating func increaseQuestionNumber() {
-        // swiftlint:disable shorthand_operator
-        questionNumber = questionNumber + 1 < quizCount
-                ? questionNumber + 1
-                : 0
+        if questionNumber + 1 < quizCount {
+            questionNumber += 1
+        } else {
+            questionNumber = 0
+            rightAnswer = 0
+        }
     }
-
 }
