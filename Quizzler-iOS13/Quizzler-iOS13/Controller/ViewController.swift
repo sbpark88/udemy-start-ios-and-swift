@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var trueButton: UIButton!
@@ -45,11 +46,11 @@ class ViewController: UIViewController {
     }
 
     private func printQuiz() {
+        scoreLabel.text = "Score: \(quizBrain.getScore())"
         questionLabel.text = quizBrain.getCurrentQuestion()
         // Set default is able to '.none' or 'nil' or 'UIColor.claer'
-        trueButton.backgroundColor = .none
-        falseButton.backgroundColor = nil
-//        falseButton.backgroundColor = UIColor.clear
+        trueButton.backgroundColor = .none ?? nil ?? UIColor.clear
+        falseButton.backgroundColor = UIColor.clear
 
         progressBar.progress = Float(quizBrain.questionNumber + 1) / Float(quizBrain.quizCount)
     }
