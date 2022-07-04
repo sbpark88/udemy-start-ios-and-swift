@@ -13,15 +13,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
+    // Each UIButtons changed from 'Outlet' to 'Outlet Collection'.
+    @IBOutlet var answerButton: [UIButton]!
 
     var quizBrain: QuizBrain = QuizBrain()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print(quizBrain.quizCount)
 
         printQuiz()
     }
@@ -48,11 +46,14 @@ class ViewController: UIViewController {
     private func printQuiz() {
         scoreLabel.text = "Score: \(quizBrain.getScore())"
         questionLabel.text = quizBrain.getCurrentQuestion()
-        // Set default is able to '.none' or 'nil' or 'UIColor.claer'
-        trueButton.backgroundColor = .none ?? nil ?? UIColor.clear
-        falseButton.backgroundColor = UIColor.clear
+        let answerList = quizBrain.getCurrentAnswerList()
+
+        // enumerated() make to use index
+        answerButton.enumerated().forEach { (index: Int, button: UIButton) in
+            button.setTitle(answerList[index], for: .normal)
+            button.backgroundColor = .none ?? nil ?? UIColor.clear
+        }
 
         progressBar.progress = Float(quizBrain.questionNumber + 1) / Float(quizBrain.quizCount)
     }
-
 }
