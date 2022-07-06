@@ -9,16 +9,21 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var storyLabel: UILabel!
-    @IBOutlet weak var choice1Button: UIButton!
-    @IBOutlet weak var choice2Button: UIButton!
+    @IBOutlet var choiceButtons: [UIButton]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
-
-
+    
+    @IBAction func pressChoiceButton(_ sender: Any) {
+        choiceButtons.enumerated().forEach { (index: Int, button: UIButton) in
+            if index == 0 {
+                button.setTitle("Click", for: .normal)
+                button.backgroundColor = .none ?? nil ?? UIColor.clear
+            }
+        }
+    }
 }
 
