@@ -9,22 +9,22 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+
     @IBOutlet weak var storyLabel: UILabel!
     @IBOutlet var choiceButtons: [UIButton]!
 
     var storyBrain: StoryBrain = StoryBrain()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         loadStory()
     }
-    
+
     @IBAction func pressChoiceButton(_ sender: Any) {
-        
+
     }
 
-    private func loadStory() -> Void {
+    private func loadStory() {
         storyLabel.text = storyBrain.getText()
         let choice = storyBrain.getChoice()
         choiceButtons.enumerated().forEach { (index: Int, button: UIButton) in
@@ -32,4 +32,3 @@ class ViewController: UIViewController {
         }
     }
 }
-
