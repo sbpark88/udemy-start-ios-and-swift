@@ -12,17 +12,23 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var storyLabel: UILabel!
     @IBOutlet var choiceButtons: [UIButton]!
+
+    var storyBrain: StoryBrain = StoryBrain()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadStory()
     }
     
     @IBAction func pressChoiceButton(_ sender: Any) {
+        
+    }
+
+    private func loadStory() -> Void {
+        storyLabel.text = storyBrain.getText()
+        let choice = storyBrain.getChoice()
         choiceButtons.enumerated().forEach { (index: Int, button: UIButton) in
-            if index == 0 {
-                button.setTitle("Click", for: .normal)
-                button.backgroundColor = .none ?? nil ?? UIColor.clear
-            }
+            button.setTitle(choice[index], for: .normal)
         }
     }
 }
