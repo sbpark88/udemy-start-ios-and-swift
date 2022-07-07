@@ -10,5 +10,16 @@ import Foundation
 
 struct Story {
     let text: String
-    let choice: [String]
+    let choices: [Choice]
+
+    struct Choice {
+        let choice: String
+        let goTo: Int
+
+        init(_ choice: String, _ goTo: Int) {
+            self.choice = choice
+            self.goTo = goTo
+        }
+    }
+
 }
