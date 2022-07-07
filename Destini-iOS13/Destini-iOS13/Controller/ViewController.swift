@@ -17,18 +17,19 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadStory()
+        updateUI()
     }
 
-    @IBAction func pressChoiceButton(_ sender: Any) {
-
+    @IBAction func choiceMade(_ sender: UIButton) {
+        storyBrain.setNextStory(choiceNumber: sender.tag)
+        updateUI()
     }
 
-    private func loadStory() {
+    private func updateUI() {
         storyLabel.text = storyBrain.getText()
-        let choice = storyBrain.getChoice()
+        let choices: [Story.Choice] = storyBrain.getChoice()
         choiceButtons.enumerated().forEach { (index: Int, button: UIButton) in
-            button.setTitle(choice[index], for: .normal)
+            button.setTitle(choices[index].choice, for: .normal)
         }
     }
 }
