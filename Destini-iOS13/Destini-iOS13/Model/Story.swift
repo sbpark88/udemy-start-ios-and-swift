@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+struct Story {
+    let text: String
+    let choice: [String]
+}
