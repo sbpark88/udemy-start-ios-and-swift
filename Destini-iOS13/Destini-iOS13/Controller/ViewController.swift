@@ -17,6 +17,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        choiceButtons.forEach { button in
+            button.titleEdgeInsets = UIEdgeInsets(top: 3, left: 5, bottom: 3, right: 5)
+        }
         updateUI()
     }
 
