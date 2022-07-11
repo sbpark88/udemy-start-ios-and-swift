@@ -11,6 +11,8 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var heightLable: UILabel!
     @IBOutlet weak var weightLable: UILabel!
+    @IBOutlet weak var heightSlider: UISlider!
+    @IBOutlet weak var weightSlider: UISlider!
 
     var bodyInfo: [UILabel] = []
 
@@ -24,7 +26,7 @@ class ViewController: UIViewController {
     }
 
     private func updateUi(tag: Int, measurement: Float) {
-//        let strMeasurement: String = String(round(measurement * 10) / 10)
+        //        let strMeasurement: String = String(round(measurement * 10) / 10)
         let strMeasurement: String = String(format: "%.1f", measurement)
 
         bodyInfo[tag].text = tag == 0
@@ -32,4 +34,12 @@ class ViewController: UIViewController {
                 : "\(strMeasurement) kg"
     }
 
+    @IBAction func calculatePressed(_ sender: UIButton) {
+        let height = heightSlider.value
+        let weight = weightSlider.value
+
+        let bmi = weight / pow(height / 100, 2)
+        
+        print(bmi)
+    }
 }
