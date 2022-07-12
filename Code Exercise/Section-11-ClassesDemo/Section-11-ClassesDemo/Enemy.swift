@@ -15,4 +15,7 @@ class Enemy {
         print("Land a hit, does \(attackStregth) damage.")
     }
 
+    func takeDamage(amount: Int) {
+        health -= amount
+    }
 }

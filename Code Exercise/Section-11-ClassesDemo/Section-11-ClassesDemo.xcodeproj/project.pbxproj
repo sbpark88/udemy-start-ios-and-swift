@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6EB059CB624F1A7C668A06D0 /* Dragon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB0599D4D7D021033DEDC20 /* Dragon.swift */; };
 		6EB05C316CD34FB756FE77C9 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB05B7F75E78B7A4AE6DD69 /* Enemy.swift */; };
+		6EB05DE5C2367AC28BBB42C8 /* Well.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB0576F76F860AFCA004B56 /* Well.swift */; };
 		E9B3B4D0287C784200012EE9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3B4CF287C784200012EE9 /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6EB0576F76F860AFCA004B56 /* Well.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Well.swift; sourceTree = "<group>"; };
 		6EB0599D4D7D021033DEDC20 /* Dragon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dragon.swift; sourceTree = "<group>"; };
 		6EB05B7F75E78B7A4AE6DD69 /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		E9B3B4CC287C784200012EE9 /* Section-11-ClassesDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Section-11-ClassesDemo"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +66,7 @@
 				E9B3B4CF287C784200012EE9 /* main.swift */,
 				6EB05B7F75E78B7A4AE6DD69 /* Enemy.swift */,
 				6EB0599D4D7D021033DEDC20 /* Dragon.swift */,
+				6EB0576F76F860AFCA004B56 /* Well.swift */,
 			);
 			path = "Section-11-ClassesDemo";
 			sourceTree = "<group>";
@@ -129,6 +132,7 @@
 				E9B3B4D0287C784200012EE9 /* main.swift in Sources */,
 				6EB05C316CD34FB756FE77C9 /* Enemy.swift in Sources */,
 				6EB059CB624F1A7C668A06D0 /* Dragon.swift in Sources */,
+				6EB05DE5C2367AC28BBB42C8 /* Well.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +255,7 @@
 		E9B3B4D4287C784200012EE9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3396RBUT6V;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -263,6 +268,7 @@
 		E9B3B4D5287C784200012EE9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3396RBUT6V;
 				ENABLE_HARDENED_RUNTIME = YES;
