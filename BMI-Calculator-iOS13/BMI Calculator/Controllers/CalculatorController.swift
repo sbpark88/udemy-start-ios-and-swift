@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CalculatorController.swift
 //  BMI Calculator
 //
 //  Created by Angela Yu on 21/08/2019.
@@ -9,13 +9,14 @@
 import UIKit
 
 class ViewController: UIViewController {
+    var calculagtorBrain = CalculatorBrain()
+
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var heightSlider: UISlider!
     @IBOutlet weak var weightSlider: UISlider!
 
     var bodyInfo: [UILabel] = []
-    var bmi: Float = 0.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +37,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func calculatePressed(_ sender: UIButton) {
-        let height = heightSlider.value
-        let weight = weightSlider.value
+        let height: Float = heightSlider.value
+        let weight: Float = weightSlider.value
 
-        bmi = weight / pow(height / 100, 2)
+        calculagtorBrain.calculateBMI(height: height, weight: weight)
 
         /*let secondVC = SecondViewController()
         secondVC.bmiValue = String(format: "%.1f", bmi)
@@ -65,7 +66,7 @@ class ViewController: UIViewController {
             guard let destinationVC: ResultViewController = segue.destination as? ResultViewController else {
                 return
             }
-            destinationVC.bmiValue = String(format: "%.1f", bmi)
+            destinationVC.bmiValue = calculagtorBrain.getBMIValue()
         }
     }
 }
