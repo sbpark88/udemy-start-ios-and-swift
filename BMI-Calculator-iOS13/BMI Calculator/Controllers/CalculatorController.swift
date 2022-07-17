@@ -67,6 +67,8 @@ class ViewController: UIViewController {
                 return
             }
             destinationVC.bmiValue = calculagtorBrain.getBMIValue()
+            destinationVC.advice = calculagtorBrain.getAdvice()
+            destinationVC.backgroundColor = calculagtorBrain.getColor()
         }
     }
 }
