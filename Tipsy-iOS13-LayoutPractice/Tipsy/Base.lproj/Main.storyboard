@@ -196,13 +196,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1aU-5P-VMi">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="56.32" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cw2-SX-JMK">
-                                        <rect key="frame" x="125" y="168" width="125" height="100"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="56.32" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cw2-SX-JMK">
+                                        <rect key="frame" x="125" y="168" width="125" height="54"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="45"/>
                                         <color key="textColor" red="0.0" green="0.69019607839999997" blue="0.41960784309999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total per person" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfb-0w-mI8">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total per person" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfb-0w-mI8">
                                         <rect key="frame" x="0.0" y="132" width="375" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <color key="textColor" red="0.58431372550000005" green="0.60392156860000001" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -213,8 +213,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="B93-MK-iQe"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="ftz-kx-9N3"/>
+                                    <constraint firstItem="xfb-0w-mI8" firstAttribute="centerY" secondItem="1aU-5P-VMi" secondAttribute="centerY" id="lHI-fq-gkh"/>
                                     <constraint firstAttribute="trailing" secondItem="xfb-0w-mI8" secondAttribute="trailing" id="ncZ-yx-Xvt"/>
                                     <constraint firstItem="cw2-SX-JMK" firstAttribute="centerX" secondItem="1aU-5P-VMi" secondAttribute="centerX" id="wGc-JL-30J"/>
+                                    <constraint firstItem="cw2-SX-JMK" firstAttribute="top" secondItem="xfb-0w-mI8" secondAttribute="bottom" id="yKR-y0-aHw"/>
                                     <constraint firstItem="xfb-0w-mI8" firstAttribute="leading" secondItem="1aU-5P-VMi" secondAttribute="leading" id="zm5-Gg-zsU"/>
                                 </constraints>
                             </view>
@@ -233,8 +235,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="10f"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Split between 2 people, with 10% tip." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y5n-yI-QwU">
-                                <rect key="frame" x="20" y="305" width="335" height="117"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Split between 2 people, with 10% tip." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y5n-yI-QwU" userLabel="Tip Message">
+                                <rect key="frame" x="34.333333333333343" y="305" width="306.66666666666663" height="117"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="117" id="Iv5-vV-mnE"/>
                                 </constraints>
@@ -247,13 +249,13 @@
                         <color key="backgroundColor" red="0.97254901959999995" green="1" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="y5n-yI-QwU" firstAttribute="top" secondItem="1aU-5P-VMi" secondAttribute="bottom" constant="5" id="56n-sW-QEc"/>
-                            <constraint firstItem="y5n-yI-QwU" firstAttribute="leading" secondItem="E4v-0r-cyo" secondAttribute="leading" constant="20" symbolic="YES" id="8jA-9I-7jv"/>
+                            <constraint firstItem="y5n-yI-QwU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="E4v-0r-cyo" secondAttribute="leading" id="8jA-9I-7jv"/>
                             <constraint firstAttribute="trailing" secondItem="1aU-5P-VMi" secondAttribute="trailing" id="Ifj-vZ-nBi"/>
                             <constraint firstItem="1aU-5P-VMi" firstAttribute="leading" secondItem="E4v-0r-cyo" secondAttribute="leading" id="Ypf-Iw-U2G"/>
                             <constraint firstItem="fzV-gt-7rc" firstAttribute="bottom" secondItem="SFV-my-Ds8" secondAttribute="bottom" id="emE-Qr-Z7G"/>
                             <constraint firstItem="y5n-yI-QwU" firstAttribute="centerX" secondItem="E4v-0r-cyo" secondAttribute="centerX" id="fvq-Re-X6u"/>
                             <constraint firstItem="fzV-gt-7rc" firstAttribute="centerX" secondItem="E4v-0r-cyo" secondAttribute="centerX" id="i4R-kM-Y3c"/>
-                            <constraint firstAttribute="trailing" secondItem="y5n-yI-QwU" secondAttribute="trailing" constant="20" symbolic="YES" id="loe-N5-Hbz"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="y5n-yI-QwU" secondAttribute="trailing" id="loe-N5-Hbz"/>
                             <constraint firstItem="1aU-5P-VMi" firstAttribute="top" secondItem="E4v-0r-cyo" secondAttribute="top" id="tzh-Xw-gZS"/>
                         </constraints>
                     </view>
