@@ -56,7 +56,7 @@
                                                         </state>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKa-YD-tVk">
-                                                        <rect key="frame" x="233.33333333333337" y="0.0" width="101.66666666666666" height="54"/>
+                                                        <rect key="frame" x="233.33333333333334" y="0.0" width="101.66666666666666" height="54"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="GAo-ZL-JMN"/>
                                                             <constraint firstAttribute="height" constant="54" id="gkg-fL-ubg"/>
