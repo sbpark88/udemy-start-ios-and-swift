@@ -16,4 +16,9 @@ class CalculatorViewController: UIViewController {
 
     @IBAction func calculatePressed(_ sender: UIButton) {
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+    }
+
 }
