@@ -46,7 +46,7 @@
                                                             <action selector="tipChanged:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sJ5-v3-HAm"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rwu-A9-VfH">
+                                                    <button opaque="NO" tag="10" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rwu-A9-VfH">
                                                         <rect key="frame" x="129.5" y="0.0" width="115" height="54"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="SaS-lP-5d7"/>
@@ -61,7 +61,7 @@
                                                             <action selector="tipChanged:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aqY-40-wiX"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKa-YD-tVk">
+                                                    <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKa-YD-tVk">
                                                         <rect key="frame" x="259.5" y="0.0" width="114.5" height="54"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="GAo-ZL-JMN"/>
@@ -198,9 +198,9 @@
                     <connections>
                         <outlet property="billTextField" destination="hoc-4I-eJO" id="Sog-p7-XRz"/>
                         <outlet property="splitNumberLabel" destination="b3A-Bj-XTX" id="etO-rp-nbC"/>
-                        <outlet property="tenPctButton" destination="Rwu-A9-VfH" id="G9z-xP-Ygr"/>
-                        <outlet property="twentyPctButton" destination="CKa-YD-tVk" id="N2r-3q-B28"/>
-                        <outlet property="zeroPctButton" destination="NIj-D2-Uq5" id="gor-Yn-ddi"/>
+                        <outletCollection property="tipPercentButton" destination="NIj-D2-Uq5" collectionClass="NSMutableArray" id="KVk-az-DJ5"/>
+                        <outletCollection property="tipPercentButton" destination="Rwu-A9-VfH" collectionClass="NSMutableArray" id="uie-b6-eX7"/>
+                        <outletCollection property="tipPercentButton" destination="CKa-YD-tVk" collectionClass="NSMutableArray" id="Mfn-b3-scv"/>
                         <segue destination="Dnf-m2-FPm" kind="presentation" id="Sc2-3r-ENo"/>
                     </connections>
                 </viewController>
