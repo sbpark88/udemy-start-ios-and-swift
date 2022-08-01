@@ -5,42 +5,58 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var billTextField: UITextField!
     @IBOutlet var tipPercentButton: [UIButton]!
     @IBOutlet weak var splitNumberLabel: UILabel!
-    let numberRegex: String = "^(0?\\.\\d+|[1-9]\\d*\\.?\\d*)$"
+
+    var tipCalculator: TipCalculator?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        tipCalculator = TipCalculator(
+                billTotal: 0.0,
+                tipPercent: Double(splitNumberLabel.text!)!,
+                people: Double(splitNumberLabel.text!)!
+        )
+    }
 
     @IBAction func tipChanged(_ sender: UIButton) {
         tipPercentButton.forEach { button in
-            button.isSelected = (button.tag == sender.tag) ? true : false
+            if button.tag == sender.tag {
+                button.isSelected = true
+                tipCalculator?.setTipPercent(sender.tag)
+            } else {
+                button.isSelected = false
+            }
         }
     }
 
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
         splitNumberLabel.text = String(format: "%.0f", sender.value)
+        tipCalculator?.setPeople(split: sender.value)
     }
 
     @IBAction func calculatePressed(_ sender: UIButton) {
         guard let billTotal = billTextField.text else {
             fatalError("guard failure handling has not been implemented")
         }
-
+        tipCalculator?.setBillTotal(billTotal)
         billTextField.endEditing(true)  // focus out
 
-        // 'billTotal' can pass the guard let condition when ""(empty string)
-        // Therefore, we must check it.
-        // In this code, I used regex to check is it number format.
-        if billTotal.range(of: numberRegex, options: .regularExpression) != nil {
-            var eachTip: Double = 0.0
-            tipPercentButton.forEach { button in
-                if button.isSelected {
-                    eachTip = Double(billTotal)! * (Double(button.tag) / 100) / Double(splitNumberLabel.text!)!
-                }
-            }
-
-            print(String(format: "%.2f", eachTip))
-        }
+        performSegue(withIdentifier: "segueToResult", sender: self)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+
+        if segue.identifier == "segueToResult" {
+            guard let resultView: ResultViewController = segue.destination as? ResultViewController else {
+                return
+            }
+
+            resultView.tipPercent = tipCalculator?.tipPercent
+            resultView.people = tipCalculator?.people
+            resultView.eachTip = tipCalculator?.calculateTip()
+        }
+
     }
 
 }

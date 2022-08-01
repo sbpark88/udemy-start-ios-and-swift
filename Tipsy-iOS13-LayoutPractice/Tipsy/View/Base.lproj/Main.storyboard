@@ -201,7 +201,7 @@
                         <outletCollection property="tipPercentButton" destination="NIj-D2-Uq5" collectionClass="NSMutableArray" id="KVk-az-DJ5"/>
                         <outletCollection property="tipPercentButton" destination="Rwu-A9-VfH" collectionClass="NSMutableArray" id="uie-b6-eX7"/>
                         <outletCollection property="tipPercentButton" destination="CKa-YD-tVk" collectionClass="NSMutableArray" id="Mfn-b3-scv"/>
-                        <segue destination="Dnf-m2-FPm" kind="presentation" id="Sc2-3r-ENo"/>
+                        <segue destination="Dnf-m2-FPm" kind="presentation" identifier="segueToResult" id="Sc2-3r-ENo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
