@@ -30,7 +30,7 @@ struct TipCalculator {
     }
 
     func calculateTip() -> String {
-        let eachTip: Double = billTotal! * (tipPercent! / 100) / people!
+        let eachTip: Double = billTotal! * (1 + (tipPercent! / 100)) / people!
         return String(format: "%.2f", eachTip)
     }
 
