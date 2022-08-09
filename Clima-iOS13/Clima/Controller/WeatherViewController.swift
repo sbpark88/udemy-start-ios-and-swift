@@ -14,19 +14,36 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         searchTextField.delegate = self
     }
 
     @IBAction func searchPressed(_ sender: Any) {
-        print(searchTextField.text!)
+        searchTextField.endEditing(true)
     }
 
+    // Asks the delegate whether to process the pressing of the Return button for the text field.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        fatalError("textFieldShouldReturn(_:) has not been implemented")
+        searchTextField.endEditing(true)
+//        textField.endEditing(true)  // equal
+        return true
+    }
+
+    // Asks the delegate whether to stop editing in the specified text field.
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.text != "" {
+            return true
+        } else {
+            textField.placeholder = "Type something"
+            return false
+        }
+    }
+
+    // Tells the delegate when editing stops for the specified text field.
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        searchTextField.text = ""
     }
 }
 
