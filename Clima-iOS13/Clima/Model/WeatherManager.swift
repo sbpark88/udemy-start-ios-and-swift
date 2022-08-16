@@ -21,7 +21,7 @@ struct WeatherManager {
         // 3. Give the session a task
         // anonymous function
 //        let task: URLSessionDataTask = session.dataTask(with: url, completionHandler: handle(data:response:error:))
-        let task: URLSessionDataTask = session.dataTask(with: url) { data, response, error in
+        /*let task: URLSessionDataTask = session.dataTask(with: url) { data, response, error in
             if let error = error {
                 print(error)
                 return
@@ -30,8 +30,16 @@ struct WeatherManager {
             guard let safeData = data else { return }
             let dataString = String(data: safeData, encoding: .utf8)
             print(dataString as Any)
-        }
+        }*/
+        let task: URLSessionDataTask = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+            if let error = error {
+                print(error)
+                return
+            }
 
+            guard let safeData = data else { return }
+            parseJson(weatherData: safeData)
+        }
 
         // 4. Start the task
         task.resume()
@@ -46,6 +54,30 @@ struct WeatherManager {
             let dataString = String(data: safeData, encoding: .utf8)
             print(dataString as Any)
         }*/
+
+    }
+
+    func parseJson(weatherData: Data) {
+        let decoder = JSONDecoder()
+//        do {
+//            let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
+//        } catch (error) {
+//            print("Cannot change from JSON to Swift object. (error: \(error))")
+//        }
+
+        do {
+            let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
+            print(decodedData.name)
+            print(decodedData.main.temp)
+            print(decodedData.weather[0].description)
+//            print(decodedData.main.feelsLike)
+//            print(decodedData.weather.description)
+//            print(decodedData.main.temp)
+//            print(decodedData.main.tempMax)
+
+        } catch {
+            print("Cannot change from JSON to Swift object.")
+        }
 
     }
 
