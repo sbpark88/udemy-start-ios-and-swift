@@ -1,8 +1,3 @@
-//
-// Created by 박새별 on 2022/08/16.
-// Copyright (c) 2022 App Brewery. All rights reserved.
-//
-
 import Foundation
 
 // A type that can decode itself from an external representation.

@@ -27,6 +27,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     }
 
     // Asks the delegate whether to process the pressing of the Return button for the text field.
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchTextField.endEditing(true)
 //        textField.endEditing(true)  // equal
@@ -34,6 +35,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     }
 
     // Asks the delegate whether to stop editing in the specified text field.
+
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.text != "" {
             return true
@@ -44,9 +46,11 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     }
 
     // Tells the delegate when editing stops for the specified text field.
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let city = textField.text {
             weatherManager.fetchWeather(cityName: city)
+            conditionImageView.image = UIImage(named: weatherManager.weatherCondition!)
         }
         searchTextField.text = ""
     }
