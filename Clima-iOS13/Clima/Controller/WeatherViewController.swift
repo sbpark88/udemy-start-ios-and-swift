@@ -50,7 +50,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let city = textField.text {
             weatherManager.fetchWeather(cityName: city)
-            conditionImageView.image = UIImage(named: weatherManager.weatherCondition!)
+//            conditionImageView.image = UIImage(named: weatherManager.weatherCondition!)
         }
         searchTextField.text = ""
     }

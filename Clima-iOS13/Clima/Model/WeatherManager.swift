@@ -7,13 +7,13 @@ struct WeatherManager {
     var weatherData: WeatherData?
     var weatherCondition: String?
 
-    mutating func fetchWeather(cityName: String) {
+    func fetchWeather(cityName: String) {
         let urlString = "\(weatherUrl)&q=\(cityName)"
         print(urlString)
         performRequest(urlString: urlString)
     }
 
-    private mutating func performRequest(urlString: String) {
+    private func performRequest(urlString: String) {
         // 1. Create a URL
         guard let url = URL(string: urlString) else { return }
 
@@ -30,8 +30,9 @@ struct WeatherManager {
             }
 
             guard let safeData = data else { return }
-            weatherData = parseJson(weatherData: safeData)
-            weatherCondition = getConditionName(weatherId: weatherData!.weather[0].id)
+            parseJson(weatherData: safeData)
+//            weatherData = parseJson(weatherData: safeData)
+//            weatherCondition = getConditionName(weatherId: weatherData!.weather[0].id)
         }
 
         // 4. Start the task
@@ -49,46 +50,20 @@ struct WeatherManager {
         }*/
     }
 
-    private func parseJson(weatherData: Data) -> WeatherData? {
+    private func parseJson(weatherData: Data) {
         let decoder = JSONDecoder()
-
         do {
             let decodedData: WeatherData = try decoder.decode(WeatherData.self, from: weatherData)
             let id = decodedData.weather[0].id
-            return decodedData
+            let temp = decodedData.main.temp
+            let name = decodedData.name
+
+            let weather = WeatherModel(conditionId: id, cityName: name, temperature: temp)
+            print(weather.conditionName)
+            print(weather.temperatureString)
         } catch {
             print("Cannot change from JSON to Swift object.")
-            return nil
         }
     }
-
-    private func getConditionName(weatherId: Int) -> String {
-        switch weatherId {
-        case 200...232:
-            return "cloud.bolt"
-        case 300...321:
-            return "cloud.drizzle"
-        case 500...531:
-            return "cloud.rain"
-        case 600...622:
-            return "cloud.snow"
-        case 701...781:
-            return "cloud.fog"
-        case 800:
-            return "sun.max"
-        case 801...804:
-            return "cloud.bolt"
-        default:
-            return "cloud"
-        }
-    }
-
-    /*func getWeatherData() -> WeatherData? {
-        weatherData
-    }
-
-    func getWeatherCondition() -> String? {
-        weatherCondition
-    }*/
 
 }
