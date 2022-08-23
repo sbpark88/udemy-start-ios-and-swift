@@ -1,18 +1,19 @@
 import Foundation
 
 // A type that can decode itself from an external representation.
-struct WeatherData: Decodable {
+// typealias Codable = Decodable & Encodable
+struct WeatherData: Codable {
     let name: String
     let main: Main
     let weather: [Weather]
 
 
-    struct Main: Decodable {
+    struct Main: Codable {
         let temp: Double
     }
 }
 
-struct Weather: Decodable {
+struct Weather: Codable {
     let id: Int
     let main: String
     let description: String

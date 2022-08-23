@@ -1,11 +1,17 @@
 import Foundation
 
+protocol WeatherManagerDelegate {
+    func didUpdateWeather(weather: WeatherModel)
+}
+
 struct WeatherManager {
 
     // swiftlint:disable line_length
     let weatherUrl = "https://api.openweathermap.org/data/2.5/weather?appid=3f413e250242a4ca401bf02c302006cc&lang=kr&units=metric"
     var weatherData: WeatherData?
     var weatherCondition: String?
+
+    var delegate: WeatherManagerDelegate?
 
     func fetchWeather(cityName: String) {
         let urlString = "\(weatherUrl)&q=\(cityName)"
@@ -30,27 +36,17 @@ struct WeatherManager {
             }
 
             guard let safeData = data else { return }
-            parseJson(weatherData: safeData)
-//            weatherData = parseJson(weatherData: safeData)
-//            weatherCondition = getConditionName(weatherId: weatherData!.weather[0].id)
+            guard let weather = parseJson(weatherData: safeData) else { return }
+//            let weatherVC = WeatherViewController()
+//            weatherVC.didUpdateWeather(weather: weather)
+            delegate?.didUpdateWeather(weather: weather)
         }
 
         // 4. Start the task
         task.resume()
-
-        /*func handle(data: Data?, response: URLResponse?, error: Error?) {
-            if let error = error {
-                print(error)
-                return
-            }
-
-            guard let safeData = data else { return }
-            let dataString = String(data: safeData, encoding: .utf8)
-            print(dataString as Any)
-        }*/
     }
 
-    private func parseJson(weatherData: Data) {
+    private func parseJson(weatherData: Data) -> WeatherModel? {
         let decoder = JSONDecoder()
         do {
             let decodedData: WeatherData = try decoder.decode(WeatherData.self, from: weatherData)
@@ -59,10 +55,10 @@ struct WeatherManager {
             let name = decodedData.name
 
             let weather = WeatherModel(conditionId: id, cityName: name, temperature: temp)
-            print(weather.conditionName)
-            print(weather.temperatureString)
+            return weather
         } catch {
             print("Cannot change from JSON to Swift object.")
+            return nil
         }
     }
 
