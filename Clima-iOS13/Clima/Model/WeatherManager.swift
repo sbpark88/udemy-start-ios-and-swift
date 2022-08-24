@@ -1,7 +1,8 @@
 import Foundation
 
 protocol WeatherManagerDelegate {
-    func didUpdateWeather(weather: WeatherModel)
+    func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel)
+    func didFailWithError(error: Error)
 }
 
 struct WeatherManager {
@@ -13,13 +14,13 @@ struct WeatherManager {
 
     var delegate: WeatherManagerDelegate?
 
-    func fetchWeather(cityName: String) {
+    func fetchWeather(_ cityName: String) {
         let urlString = "\(weatherUrl)&q=\(cityName)"
         print(urlString)
-        performRequest(urlString: urlString)
+        performRequest(with: urlString)
     }
 
-    private func performRequest(urlString: String) {
+    private func performRequest(with urlString: String) {
         // 1. Create a URL
         guard let url = URL(string: urlString) else { return }
 
@@ -36,17 +37,17 @@ struct WeatherManager {
             }
 
             guard let safeData = data else { return }
-            guard let weather = parseJson(weatherData: safeData) else { return }
+            guard let weather = parseJson(safeData) else { return }
 //            let weatherVC = WeatherViewController()
 //            weatherVC.didUpdateWeather(weather: weather)
-            delegate?.didUpdateWeather(weather: weather)
+            delegate?.didUpdateWeather(self, weather: weather)
         }
 
         // 4. Start the task
         task.resume()
     }
 
-    private func parseJson(weatherData: Data) -> WeatherModel? {
+    private func parseJson(_ weatherData: Data) -> WeatherModel? {
         let decoder = JSONDecoder()
         do {
             let decodedData: WeatherData = try decoder.decode(WeatherData.self, from: weatherData)
@@ -57,7 +58,7 @@ struct WeatherManager {
             let weather = WeatherModel(conditionId: id, cityName: name, temperature: temp)
             return weather
         } catch {
-            print("Cannot change from JSON to Swift object.")
+            delegate?.didFailWithError(error: error)
             return nil
         }
     }

@@ -40,6 +40,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
 
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.text != "" {
+
             return true
         } else {
             textField.placeholder = "Type something"
@@ -51,20 +52,21 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let city = textField.text {
-            weatherManager.fetchWeather(cityName: city)
-//            conditionImageView.image = UIImage(named: weatherManager.weatherCondition!)
+            weatherManager.fetchWeather(city)
         }
         searchTextField.text = ""
     }
 
-    func didUpdateWeather(weather: WeatherModel) {
-        conditionImageView.image = UIImage(named: weather.conditionName)
+    func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
+        DispatchQueue.main.async { [self] in
+            conditionImageView.image = UIImage(named: weather.conditionName)
+            temperatureLabel.text = weather.temperatureString
+            cityLabel.text = weather.cityName
+        }
+    }
 
-        print(weather.temperature)
-        print(weather.cityName)
-        print(weather.conditionId)
-        print(weather.conditionName)
-        print(weather.temperatureString)
+    func didFailWithError(error: Error) {
+        print(error)
     }
 }
 
