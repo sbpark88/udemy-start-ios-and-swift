@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class WeatherViewController: UIViewController {
 
@@ -16,9 +17,15 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
 
     var weatherManager = WeatherManager()
+    let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // This is just question popup. We need to add key-value set into 'Info.plist'.
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+
         weatherManager.delegate = self
         searchTextField.delegate = self
     }
