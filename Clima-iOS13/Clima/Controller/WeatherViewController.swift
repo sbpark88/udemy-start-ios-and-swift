@@ -23,8 +23,13 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
 
         // This is just question popup. We need to add key-value set into 'Info.plist'.
+        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        // We can see explanation at the end of 'requestLocation',
+        // When using this method, the associated delegate must implement
+        // the locationManager(_:didUpdateLocations:) and locationManager(_:didFailWithError:) methods.
+        // Failure to do so is a programmer error.
 
         weatherManager.delegate = self
         searchTextField.delegate = self
@@ -43,7 +48,7 @@ extension WeatherViewController: UITextFieldDelegate {
     // Asks the delegate whether to process the pressing of the Return button for the text field.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchTextField.endEditing(true)
-//        textField.endEditing(true)  // equal
+        //        textField.endEditing(true)  // equal
         return true
     }
 
@@ -81,6 +86,19 @@ extension WeatherViewController: WeatherManagerDelegate {
     }
 
     func didFailWithError(error: Error) {
+        print(error)
+    }
+
+}
+
+// MARK: <#Section Heading#>
+
+extension WeatherViewController: CLLocationManagerDelegate {
+
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print(<#T##items: Any...##Any...#>)
+    }
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
 
