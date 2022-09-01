@@ -73,7 +73,7 @@ extension WeatherViewController: UITextFieldDelegate {
 
 }
 
-// MARK: WeatherManagerDegate
+// MARK: WeatherManagerDelegate
 
 extension WeatherViewController: WeatherManagerDelegate {
 
