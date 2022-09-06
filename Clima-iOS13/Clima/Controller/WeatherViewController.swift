@@ -55,7 +55,6 @@ extension WeatherViewController: UITextFieldDelegate {
     // Asks the delegate whether to stop editing in the specified text field.
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.text != "" {
-
             return true
         } else {
             textField.placeholder = "Type something"
@@ -97,9 +96,9 @@ extension WeatherViewController: CLLocationManagerDelegate {
 
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
-            print("latitude: \(latitude), longitude: \(longitude)")
+            let lat = location.coordinate.latitude
+            let lon = location.coordinate.longitude
+            weatherManager.fetchWeather(latitude: lat, longitude: lon)
         }
     }
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
