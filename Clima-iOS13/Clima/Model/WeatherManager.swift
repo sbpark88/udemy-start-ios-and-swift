@@ -20,6 +20,7 @@ struct WeatherManager {
         performRequest(with: urlString)
     }
 
+    // I can use the parameter types to both CLLocationDegrees and Double, becuase of 'typealias CLLocationDegrees = Double'.
     func fetchWeather(latitude: CLLocationDegrees, longitude: Double) {
         let urlString = "\(weatherUrl)&lat=\(latitude)&lon=\(longitude)"
         performRequest(with: urlString)
