@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var currencyPicker: UIPickerView!
 
-    var coinMnagager = CoinManager()
+    var coinManager = CoinManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ extension ViewController: UIPickerViewDataSource {
 
     // What is the length of the pickers?
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        coinMnagager.currencyArray.count
+        coinManager.currencyArray.count
     }
 
 }
@@ -44,8 +44,16 @@ extension ViewController: UIPickerViewDataSource {
 // MARK: UIPickerViewDelegate
 
 extension ViewController: UIPickerViewDelegate {
-    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        coinMnagager.currencyArray[row]
+
+    // Set pickerView title of each selection.
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        coinManager.currencyArray[row]
     }
+
+    // What do you do after selecting an item?
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        coinManager.getCoinPrice(for: coinManager.currencyArray[row])
+    }
+
 }
 
