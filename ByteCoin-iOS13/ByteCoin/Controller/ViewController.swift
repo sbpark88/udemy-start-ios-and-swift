@@ -21,6 +21,7 @@ class ViewController: UIViewController {
 
         currencyPicker.dataSource = self
         currencyPicker.delegate = self
+        coinManager.delegate = self
     }
 
 }
@@ -57,3 +58,13 @@ extension ViewController: UIPickerViewDelegate {
 
 }
 
+// MARK: CoinManagerDelegate
+
+extension ViewController: CoinManagerDelegate {
+    func coinManager(_ manager: CoinManager, didUpdateCoin coinData: CoinData) {
+        print(coinData)
+    }
+    func coinManager(_ manager: CoinManager, didFailWithError error: Error) {
+        print(error)
+    }
+}
