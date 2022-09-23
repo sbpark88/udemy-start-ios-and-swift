@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var bitcoinLabel: UIView!
+    @IBOutlet weak var bitcoinLabel: UILabel!
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var currencyPicker: UIPickerView!
 
@@ -29,7 +29,6 @@ class ViewController: UIViewController {
 // MARK: UIPickerViewDataSource
 
 extension ViewController: UIPickerViewDataSource {
-
     // How many pickers do you provide for?
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
@@ -39,13 +38,11 @@ extension ViewController: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         coinManager.currencyArray.count
     }
-
 }
 
 // MARK: UIPickerViewDelegate
 
 extension ViewController: UIPickerViewDelegate {
-
     // Set pickerView title of each selection.
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         coinManager.currencyArray[row]
@@ -53,18 +50,24 @@ extension ViewController: UIPickerViewDelegate {
 
     // What do you do after selecting an item?
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        coinManager.getCoinPrice(for: coinManager.currencyArray[row])
+        let selectedCurrency = coinManager.currencyArray[row]
+        coinManager.getCoinPrice(for: selectedCurrency)
+        currencyLabel.text = selectedCurrency
     }
-
 }
 
 // MARK: CoinManagerDelegate
 
 extension ViewController: CoinManagerDelegate {
     func coinManager(_ manager: CoinManager, didUpdateCoin coinData: CoinData) {
-        print(coinData)
+        DispatchQueue.main.async { [self] in
+            bitcoinLabel.text = String(format: "%.2f", coinData.rate)
+        }
     }
     func coinManager(_ manager: CoinManager, didFailWithError error: Error) {
+        DispatchQueue.main.async { [self] in
+            bitcoinLabel.text = "Error 😫 "
+        }
         print(error)
     }
 }
