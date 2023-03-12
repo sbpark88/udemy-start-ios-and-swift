@@ -20,6 +20,8 @@
 		6B0C16734F649E364B2590A3 /* Pods_Flash_Chat_iOS13.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA052034B335BED6538953AF /* Pods_Flash_Chat_iOS13.framework */; };
 		E93BE20829BE143800DC7CA3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93BE20729BE143800DC7CA3 /* Constants.swift */; };
 		E93BE20A29BE148600DC7CA3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93BE20929BE148600DC7CA3 /* Message.swift */; };
+		E944CC2829BE20B3006C17F1 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E944CC2629BE20B3006C17F1 /* MessageCell.swift */; };
+		E944CC2929BE20B3006C17F1 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E944CC2729BE20B3006C17F1 /* MessageCell.xib */; };
 		E94B308329BD408D0026422A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E94B308229BD408D0026422A /* GoogleService-Info.plist */; };
 		E95D42E729B699BF007A8ADF /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E95D42E629B699BF007A8ADF /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
@@ -42,6 +44,8 @@
 		AA052034B335BED6538953AF /* Pods_Flash_Chat_iOS13.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flash_Chat_iOS13.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E93BE20729BE143800DC7CA3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E93BE20929BE148600DC7CA3 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Message.swift; path = "Flash Chat iOS13/Message.swift"; sourceTree = SOURCE_ROOT; };
+		E944CC2629BE20B3006C17F1 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		E944CC2729BE20B3006C17F1 /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		E94B308229BD408D0026422A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E95D42E629B699BF007A8ADF /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.yaml; };
 /* End PBXFileReference section */
@@ -110,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				0B62817C235DEE8100E35CAF /* Main.storyboard */,
+				E944CC2629BE20B3006C17F1 /* MessageCell.swift */,
+				E944CC2729BE20B3006C17F1 /* MessageCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -205,6 +211,7 @@
 				0B628180235DEE8400E35CAF /* Assets.xcassets in Resources */,
 				0B62819E235F0F4D00E35CAF /* README.md in Resources */,
 				0B62817E235DEE8100E35CAF /* Main.storyboard in Resources */,
+				E944CC2929BE20B3006C17F1 /* MessageCell.xib in Resources */,
 				E94B308329BD408D0026422A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +290,7 @@
 				E93BE20A29BE148600DC7CA3 /* Message.swift in Sources */,
 				0B628191235DF01B00E35CAF /* ChatViewController.swift in Sources */,
 				0B62818D235DF00B00E35CAF /* RegisterViewController.swift in Sources */,
+				E944CC2829BE20B3006C17F1 /* MessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

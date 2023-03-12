@@ -17,15 +17,17 @@ class ChatViewController: UIViewController {
     var message: [Message] = [
         Message(sender: "1@2.coom", body: "Hey!"),
         Message(sender: "3@aa.coom", body: "Hello!"),
-        Message(sender: "1@2.coom", body: "What's Up!")
+        Message(sender: "1@2.coom", body: "What's Up!"),
+        Message(sender: "3@aa.coom", body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut ex eu urna gravida iaculis. Nulla facilisis ipsum congue elit rhoncus, nec ultrices est maximus. Fusce ornare feugiat enim sit amet tempor.")
     ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
         tableView.dataSource = self
         navigationItem.hidesBackButton = true
         title = K.appName
+
+        tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
     }
 
     @IBAction private func sendPressed(_ sender: UIButton) {
@@ -42,22 +44,17 @@ class ChatViewController: UIViewController {
     }
 }
 
+// MARK: tableView
 extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         message.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath)
-        cell.textLabel?.text = message[indexPath.row].body
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as? MessageCell else { return MessageCell() }
+
+        cell.label.text = message[indexPath.row].body
         return cell
     }
 
-}
-
-extension ChatViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print((indexPath.row))
-    }
 }
