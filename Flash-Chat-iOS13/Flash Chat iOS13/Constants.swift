@@ -2,12 +2,12 @@
 //  Constants.swift
 //  Flash Chat iOS13
 //
-//  Created by 박새별 on 2023/03/12.
 //  Copyright © 2023 Angela Yu. All rights reserved.
 //
 
 import Foundation
 
+// swiftlint:disable: type_name
 struct K {
     static let appName = "⚡️FlashChat"
     static let cellIdentifier = "ReusableCell"

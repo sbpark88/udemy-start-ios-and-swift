@@ -19,6 +19,7 @@
 		0B62819E235F0F4D00E35CAF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0B62819D235F0F4D00E35CAF /* README.md */; };
 		6B0C16734F649E364B2590A3 /* Pods_Flash_Chat_iOS13.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA052034B335BED6538953AF /* Pods_Flash_Chat_iOS13.framework */; };
 		E93BE20829BE143800DC7CA3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93BE20729BE143800DC7CA3 /* Constants.swift */; };
+		E93BE20A29BE148600DC7CA3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93BE20929BE148600DC7CA3 /* Message.swift */; };
 		E94B308329BD408D0026422A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E94B308229BD408D0026422A /* GoogleService-Info.plist */; };
 		E95D42E729B699BF007A8ADF /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E95D42E629B699BF007A8ADF /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
@@ -40,6 +41,7 @@
 		3BBAD35D44F6D97B94374775 /* Pods-Flash Chat iOS13.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flash Chat iOS13.debug.xcconfig"; path = "Target Support Files/Pods-Flash Chat iOS13/Pods-Flash Chat iOS13.debug.xcconfig"; sourceTree = "<group>"; };
 		AA052034B335BED6538953AF /* Pods_Flash_Chat_iOS13.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flash_Chat_iOS13.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E93BE20729BE143800DC7CA3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E93BE20929BE148600DC7CA3 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Message.swift; path = "Flash Chat iOS13/Message.swift"; sourceTree = SOURCE_ROOT; };
 		E94B308229BD408D0026422A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E95D42E629B699BF007A8ADF /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.yaml; };
 /* End PBXFileReference section */
@@ -115,6 +117,7 @@
 		0B628194235DF03A00E35CAF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E93BE20929BE148600DC7CA3 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				0B628179235DEE8100E35CAF /* SceneDelegate.swift in Sources */,
 				0B62818F235DF01000E35CAF /* LoginViewController.swift in Sources */,
 				E93BE20829BE143800DC7CA3 /* Constants.swift in Sources */,
+				E93BE20A29BE148600DC7CA3 /* Message.swift in Sources */,
 				0B628191235DF01B00E35CAF /* ChatViewController.swift in Sources */,
 				0B62818D235DF00B00E35CAF /* RegisterViewController.swift in Sources */,
 			);
