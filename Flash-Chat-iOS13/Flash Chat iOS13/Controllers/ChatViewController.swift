@@ -68,12 +68,12 @@ extension ChatViewController {
     }
     
     private func pullFromFirestore() {
-        db.collection(K.FStore.collectionName).getDocuments { querySnapshot, error in
+        db.collection(K.FStore.collectionName).addSnapshotListener { documentSnapshot, error in
             if let error {
                 print("There was an issue retrieving data from Firestore, \(error)")
             } else {
                 self.message = []
-                querySnapshot?.documents.forEach {
+                documentSnapshot?.documents.forEach {
                     let data = $0.data()
                     guard let messageSender = data[K.FStore.senderField] as? String, let messageBody = data[K.FStore.bodyField] as? String else { return }
                     self.message.append(Message(sender: messageSender, body: messageBody))
@@ -101,4 +101,3 @@ extension ChatViewController: UITableViewDataSource {
     }
     
 }
-
