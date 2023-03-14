@@ -51,6 +51,7 @@ class ChatViewController: UIViewController {
         guard let messageBody = messageTextfield.text else { return }
         self.pushToFirestore(messageSender: self.messageSender, messageBody: messageBody)
     }
+    
 }
 
 // MARK: Push/Pull Messages
