@@ -103,9 +103,32 @@ extension ChatViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as? MessageCell else { return MessageCell() }
+        let message = message[indexPath.row]
+        let sender: Sender = message.sender == messageSender ? .me : .you
         
-        cell.label.text = message[indexPath.row].body
+        cell.label.text = message.body
+        changeDesign(sender: sender)
+        
         return cell
+        
+        // MARK: tableView nested data
+        func changeDesign(sender: Sender) {
+            if sender == .me {
+                cell.leftImageView.isHidden = true
+                cell.rightImageView.isHidden = false
+                cell.messageBubble.backgroundColor = UIColor(named: K.BrandColors.lightPurple)
+                cell.label.textColor = UIColor(named: K.BrandColors.purple)
+            } else {
+                cell.leftImageView.isHidden = false
+                cell.rightImageView.isHidden = true
+                cell.messageBubble.backgroundColor = UIColor(named: K.BrandColors.purple)
+                cell.label.textColor = UIColor(named: K.BrandColors.lightPurple)
+            }
+        }
+        
+        enum Sender {
+            case you, me
+        }
     }
     
 }
