@@ -17,6 +17,7 @@ class ChatViewController: UIViewController {
     @IBOutlet private weak var messageTextfield: UITextField!
     
     let db = Firestore.firestore()
+    var tableScrollAnimation = false
     
     var message: [Message] = []
     var messageSender: String!
@@ -35,6 +36,7 @@ class ChatViewController: UIViewController {
         }
         
         pullFromFirestore()
+        tableScrollAnimation = true
     }
     
     @IBAction func signOutPress(_ sender: UIBarButtonItem) {
@@ -66,7 +68,9 @@ extension ChatViewController {
                 print("There was an issue saving data to Firestore, \(error)")
             } else {
                 print("Successfully saved data.")
-                messageTextfield.text = ""
+                DispatchQueue.main.async {
+                    self.messageTextfield.text = ""
+                }
             }
         }
     }
@@ -88,6 +92,8 @@ extension ChatViewController {
                     }
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
+                        let indexPath = IndexPath(row: self.message.count - 1, section: 0)
+                        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                     }
                 }
             }
