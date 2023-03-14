@@ -18,12 +18,7 @@ class ChatViewController: UIViewController {
     
     let db = Firestore.firestore()
     
-    var message: [Message] = [
-        Message(sender: "1@2.coom", body: "Hey!"),
-        Message(sender: "3@aa.coom", body: "Hello!"),
-        Message(sender: "1@2.coom", body: "What's Up!"),
-        Message(sender: "3@aa.coom", body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut ex eu urna gravida iaculis. Nulla facilisis ipsum congue elit rhoncus, nec ultrices est maximus. Fusce ornare feugiat enim sit amet tempor.")
-    ]
+    var message: [Message] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,26 +27,8 @@ class ChatViewController: UIViewController {
         title = K.appName
         
         tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
-    }
-    
-    @IBAction private func sendPressed(_ sender: UIButton) {
-        guard let messageBody = messageTextfield.text else { return }
-        let handle = Auth.auth().addStateDidChangeListener {
-            [unowned self]
-            auth, user in
-            if let _ = auth.currentUser, let messageSender = user?.email {
-                self.db.collection(K.FStore.collectionName).addDocument(data: [
-                    K.FStore.senderField: messageSender,
-                    K.FStore.bodyField: messageBody,
-                ]) { error in
-                    if let error = error {
-                        print("There was an issue saving data to firestore, \(error)")
-                    } else {
-                        print("Successfully saved data.")
-                    }
-                }
-            }
-        }
+        pullFromFirestore()
+        
     }
     
     @IBAction func signOutPress(_ sender: UIBarButtonItem) {
@@ -63,6 +40,51 @@ class ChatViewController: UIViewController {
             print("Error signing out: %0", signOutError)
         }
     }
+    
+    @IBAction private func sendPressed(_ sender: UIButton) {
+        guard let messageBody = messageTextfield.text else { return }
+        let _ = Auth.auth().addStateDidChangeListener { auth, user in
+            guard let messageSender = user?.email else { return }
+            self.pushToFirestore(messageSender: messageSender, messageBody: messageBody)
+        }
+        
+    }
+}
+
+// MARK: Push/Pull Messages
+extension ChatViewController {
+    private func pushToFirestore(messageSender: String, messageBody: String) {
+        db.collection(K.FStore.collectionName).addDocument(data: [
+            K.FStore.senderField: messageSender,
+            K.FStore.bodyField: messageBody
+        ]) { [unowned self] error in
+            if let error {
+                print("There was an issue saving data to Firestore, \(error)")
+            } else {
+                print("Successfully saved data.")
+                messageTextfield.text = ""
+            }
+        }
+    }
+    
+    private func pullFromFirestore() {
+        db.collection(K.FStore.collectionName).getDocuments { querySnapshot, error in
+            if let error {
+                print("There was an issue retrieving data from Firestore, \(error)")
+            } else {
+                self.message = []
+                querySnapshot?.documents.forEach {
+                    let data = $0.data()
+                    guard let messageSender = data[K.FStore.senderField] as? String, let messageBody = data[K.FStore.bodyField] as? String else { return }
+                    self.message.append(Message(sender: messageSender, body: messageBody))
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
 }
 
 // MARK: tableView
@@ -79,3 +101,4 @@ extension ChatViewController: UITableViewDataSource {
     }
     
 }
+
