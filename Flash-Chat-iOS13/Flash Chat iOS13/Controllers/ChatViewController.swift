@@ -19,6 +19,7 @@ class ChatViewController: UIViewController {
     let db = Firestore.firestore()
     
     var message: [Message] = []
+    var messageSender: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +28,13 @@ class ChatViewController: UIViewController {
         title = K.appName
         
         tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
-        pullFromFirestore()
         
+        let _ = Auth.auth().addStateDidChangeListener { auth, user in
+            guard let messageSender = user?.email else { return }
+            self.messageSender = messageSender
+        }
+        
+        pullFromFirestore()
     }
     
     @IBAction func signOutPress(_ sender: UIBarButtonItem) {
@@ -43,10 +49,7 @@ class ChatViewController: UIViewController {
     
     @IBAction private func sendPressed(_ sender: UIButton) {
         guard let messageBody = messageTextfield.text else { return }
-        let _ = Auth.auth().addStateDidChangeListener { auth, user in
-            guard let messageSender = user?.email else { return }
-            self.pushToFirestore(messageSender: messageSender, messageBody: messageBody)
-        }
+        self.pushToFirestore(messageSender: self.messageSender, messageBody: messageBody)
         
     }
 }
