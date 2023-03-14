@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,8 @@
 		E944CC2829BE20B3006C17F1 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E944CC2629BE20B3006C17F1 /* MessageCell.swift */; };
 		E944CC2929BE20B3006C17F1 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E944CC2729BE20B3006C17F1 /* MessageCell.xib */; };
 		E94B308329BD408D0026422A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E94B308229BD408D0026422A /* GoogleService-Info.plist */; };
+		E957BF3D29C12125001D3FF8 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = E957BF3C29C12125001D3FF8 /* Package.swift */; };
+		E957BF4029C1244D001D3FF8 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E957BF3F29C1244D001D3FF8 /* IQKeyboardManagerSwift */; };
 		E95D42E729B699BF007A8ADF /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E95D42E629B699BF007A8ADF /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +49,7 @@
 		E944CC2629BE20B3006C17F1 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		E944CC2729BE20B3006C17F1 /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		E94B308229BD408D0026422A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; name = "GoogleService-Info.plist"; path = "../../../private_data/swift/udemy/fire_chat/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E957BF3C29C12125001D3FF8 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		E95D42E629B699BF007A8ADF /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.yaml; };
 /* End PBXFileReference section */
 
@@ -56,6 +59,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B0C16734F649E364B2590A3 /* Pods_Flash_Chat_iOS13.framework in Frameworks */,
+				E957BF4029C1244D001D3FF8 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +99,7 @@
 				0B628184235DEE8400E35CAF /* Info.plist */,
 				E94B308229BD408D0026422A /* GoogleService-Info.plist */,
 				E93BE20729BE143800DC7CA3 /* Constants.swift */,
+				E957BF3C29C12125001D3FF8 /* Package.swift */,
 			);
 			path = "Flash Chat iOS13";
 			sourceTree = "<group>";
@@ -164,6 +169,9 @@
 			dependencies = (
 			);
 			name = "Flash Chat iOS13";
+			packageProductDependencies = (
+				E957BF3F29C1244D001D3FF8 /* IQKeyboardManagerSwift */,
+			);
 			productName = "Flash Chat iOS13";
 			productReference = 0B628173235DEE8100E35CAF /* Flash Chat iOS13.app */;
 			productType = "com.apple.product-type.application";
@@ -192,6 +200,9 @@
 				Base,
 			);
 			mainGroup = 0B62816A235DEE8100E35CAF;
+			packageReferences = (
+				E957BF3E29C1244D001D3FF8 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+			);
 			productRefGroup = 0B628174235DEE8100E35CAF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -288,6 +299,7 @@
 				0B62818F235DF01000E35CAF /* LoginViewController.swift in Sources */,
 				E93BE20829BE143800DC7CA3 /* Constants.swift in Sources */,
 				E93BE20A29BE148600DC7CA3 /* Message.swift in Sources */,
+				E957BF3D29C12125001D3FF8 /* Package.swift in Sources */,
 				0B628191235DF01B00E35CAF /* ChatViewController.swift in Sources */,
 				0B62818D235DF00B00E35CAF /* RegisterViewController.swift in Sources */,
 				E944CC2829BE20B3006C17F1 /* MessageCell.swift in Sources */,
@@ -492,6 +504,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E957BF3E29C1244D001D3FF8 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E957BF3F29C1244D001D3FF8 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E957BF3E29C1244D001D3FF8 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0B62816B235DEE8100E35CAF /* Project object */;
 }
