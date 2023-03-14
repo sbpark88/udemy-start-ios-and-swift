@@ -50,7 +50,6 @@ class ChatViewController: UIViewController {
     @IBAction private func sendPressed(_ sender: UIButton) {
         guard let messageBody = messageTextfield.text else { return }
         self.pushToFirestore(messageSender: self.messageSender, messageBody: messageBody)
-        
     }
 }
 
@@ -59,7 +58,8 @@ extension ChatViewController {
     private func pushToFirestore(messageSender: String, messageBody: String) {
         db.collection(K.FStore.collectionName).addDocument(data: [
             K.FStore.senderField: messageSender,
-            K.FStore.bodyField: messageBody
+            K.FStore.bodyField: messageBody,
+            K.FStore.dateField: Date().timeIntervalSince1970
         ]) { [unowned self] error in
             if let error {
                 print("There was an issue saving data to Firestore, \(error)")
@@ -71,21 +71,25 @@ extension ChatViewController {
     }
     
     private func pullFromFirestore() {
-        db.collection(K.FStore.collectionName).addSnapshotListener { documentSnapshot, error in
-            if let error {
-                print("There was an issue retrieving data from Firestore, \(error)")
-            } else {
-                self.message = []
-                documentSnapshot?.documents.forEach {
-                    let data = $0.data()
-                    guard let messageSender = data[K.FStore.senderField] as? String, let messageBody = data[K.FStore.bodyField] as? String else { return }
-                    self.message.append(Message(sender: messageSender, body: messageBody))
-                }
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
+        db.collection(K.FStore.collectionName)
+            .order(by: K.FStore.dateField)
+            .addSnapshotListener { documentSnapshot, error in
+                if let error {
+                    print("There was an issue retrieving data from Firestore, \(error)")
+                } else {
+                    self.message = []
+                    documentSnapshot?.documents.forEach {
+                        let data = $0.data()
+                        guard let messageSender = data[K.FStore.senderField] as? String,
+                              let messageBody = data[K.FStore.bodyField] as? String
+                        else { return }
+                        self.message.append(Message(sender: messageSender, body: messageBody))
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 }
             }
-        }
     }
     
 }
