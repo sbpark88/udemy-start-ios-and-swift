@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		E97A4C7229C690C90065FF8F /* HackerNewsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A4C7129C690C90065FF8F /* HackerNewsApp.swift */; };
-		E97A4C7429C690C90065FF8F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A4C7329C690C90065FF8F /* ContentView.swift */; };
 		E97A4C7629C690CA0065FF8F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97A4C7529C690CA0065FF8F /* Assets.xcassets */; };
 		E97A4C7929C690CA0065FF8F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E97A4C7829C690CA0065FF8F /* Preview Assets.xcassets */; };
 		E97A4C8029C690E00065FF8F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A4C7F29C690E00065FF8F /* Constants.swift */; };
 		E97A4C8629C698F20065FF8F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A4C8529C698F20065FF8F /* NetworkManager.swift */; };
 		E97A4C8829C69B610065FF8F /* HackerNewsPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A4C8729C69B610065FF8F /* HackerNewsPost.swift */; };
+		E9FB9B3229C7A8FB00991AC3 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FB9B3129C7A8FB00991AC3 /* DetailView.swift */; };
+		E9FB9B3429C7A9CF00991AC3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A4C7329C690C90065FF8F /* ContentView.swift */; };
+		E9FB9B3629C7C20B00991AC3 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FB9B3529C7C20B00991AC3 /* WebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		E97A4C7F29C690E00065FF8F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E97A4C8529C698F20065FF8F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E97A4C8729C69B610065FF8F /* HackerNewsPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsPost.swift; sourceTree = "<group>"; };
+		E9FB9B3129C7A8FB00991AC3 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		E9FB9B3529C7C20B00991AC3 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +64,7 @@
 				E97A4C8429C698DA0065FF8F /* Utils */,
 				E97A4C8129C696B40065FF8F /* Models */,
 				E97A4C7129C690C90065FF8F /* HackerNewsApp.swift */,
-				E97A4C7329C690C90065FF8F /* ContentView.swift */,
+				E9FB9B3029C7A8DE00991AC3 /* Views */,
 				E97A4C7529C690CA0065FF8F /* Assets.xcassets */,
 				E97A4C7729C690CA0065FF8F /* Preview Content */,
 				E97A4C7F29C690E00065FF8F /* Constants.swift */,
@@ -90,6 +94,16 @@
 				E97A4C8529C698F20065FF8F /* NetworkManager.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		E9FB9B3029C7A8DE00991AC3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E97A4C7329C690C90065FF8F /* ContentView.swift */,
+				E9FB9B3129C7A8FB00991AC3 /* DetailView.swift */,
+				E9FB9B3529C7C20B00991AC3 /* WebView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,10 +177,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E97A4C8829C69B610065FF8F /* HackerNewsPost.swift in Sources */,
-				E97A4C7429C690C90065FF8F /* ContentView.swift in Sources */,
+				E9FB9B3229C7A8FB00991AC3 /* DetailView.swift in Sources */,
+				E9FB9B3429C7A9CF00991AC3 /* ContentView.swift in Sources */,
 				E97A4C7229C690C90065FF8F /* HackerNewsApp.swift in Sources */,
 				E97A4C8629C698F20065FF8F /* NetworkManager.swift in Sources */,
 				E97A4C8029C690E00065FF8F /* Constants.swift in Sources */,
+				E9FB9B3629C7C20B00991AC3 /* WebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
