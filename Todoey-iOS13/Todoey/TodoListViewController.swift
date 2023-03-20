@@ -10,12 +10,44 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-    let itemArray = ["Find Mike", "Buy Eggos", "destroy Demogorgon"]
+    var itemArray = ["Find Mike", "Buy Eggos", "destroy Demogorgon"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setTintColor()
+        
+    }
+    
+    @IBAction func AddTodoey(_ sender: UIBarButtonItem) {
+        
+        var inputText = UITextField()
+        
+        // < Modal Header >
+        // likes document.createElement()
+        let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
+        
+        // < Modal Body >
+        // likes element.setAttribute('attribute', 'value')
+        alert.addTextField { textField in   // likes <input type="text" placeholder="Create new item">
+            textField.placeholder = "Create new item"
+            inputText = textField
+        }
+        
+        // Modal Footer Button
+        // just function
+        let action = UIAlertAction(title: "Add Item", style: .default) { action in
+            // what will happen once the user clicks the Add Todoey button on our UIAlert
+            guard let newTodoey = inputText.text, inputText.text != "" else { return }
+            self.itemArray.append(newTodoey)
+            self.tableView.reloadData()
+        }
+        
+        // likes element.addEventListener('click', () => {}), in this case, element.addEventListener('click', action)
+        alert.addAction(action)
+        
+        // likes element.appendChild(), in this case, element.appendChild(alert)
+        present(alert, animated: true, completion: nil)
         
     }
     
@@ -54,8 +86,6 @@ extension TodoListViewController {
 
 extension TodoListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
-        
         tableView.cellForRow(at: indexPath)?.accessoryType
         = tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.none
         ? .checkmark
