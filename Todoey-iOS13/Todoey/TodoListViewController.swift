@@ -15,12 +15,9 @@ class TodoListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = UIColor.cyan
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
+        setTintColor()
+        
+        
     }
     
     // MARK - Tableview Datasource Methods
@@ -37,5 +34,30 @@ class TodoListViewController: UITableViewController {
         return cell
     }
     
+    // MARK: Tableview Delegate Methods
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+        
+        tableView.cellForRow(at: indexPath)?.accessoryType
+        = tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.none
+        ? .checkmark
+        : .none
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }
 
+// MARK: Set Tint Color
+
+extension TodoListViewController {
+    func setTintColor() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = UIColor.cyan
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+    }
+}
