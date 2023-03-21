@@ -19,38 +19,10 @@ class TodoListViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setTintColor()
-        
-        itemArray.append(Item(title: "A"))
-        itemArray.append(Item(title: "B"))
-        itemArray.append(Item(title: "C"))
-        itemArray.append(Item(title: "D"))
-        itemArray.append(Item(title: "E"))
-        itemArray.append(Item(title: "F"))
-        itemArray.append(Item(title: "G"))
-        itemArray.append(Item(title: "H"))
-        itemArray.append(Item(title: "I"))
-        itemArray.append(Item(title: "J"))
-        itemArray.append(Item(title: "K"))
-        itemArray.append(Item(title: "L"))
-        itemArray.append(Item(title: "M"))
-        itemArray.append(Item(title: "N"))
-        itemArray.append(Item(title: "O"))
-        itemArray.append(Item(title: "P"))
-        itemArray.append(Item(title: "Q"))
-        itemArray.append(Item(title: "R"))
-        itemArray.append(Item(title: "S"))
-        itemArray.append(Item(title: "T"))
-        itemArray.append(Item(title: "U"))
-        itemArray.append(Item(title: "V"))
-        itemArray.append(Item(title: "W"))
-        itemArray.append(Item(title: "Z"))
-        itemArray.append(Item(title: "Y"))
-        itemArray.append(Item(title: "Z"))
-        
-        
-//        if let stored = defaults.array(forKey: K.UserDefaults.todoList) as? [String] {
-//            itemArray = stored
-//        }
+                
+        if let stored = defaults.array(forKey: K.UserDefaults.todoList) as? [Item] {
+            itemArray = stored
+        }
         
     }
     
