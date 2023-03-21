@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct K {
-    struct UserDefaults {
-        static let todoList = "TodoList"
+    struct FileManager {
+        static let todoList = "TodoList.plist"
     }
 }

@@ -10,19 +10,20 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-//    var itemArray = [String]()
     var itemArray = [Item]()
-    
-    let defaults = UserDefaults.standard
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?
+        .appendingPathComponent(K.FileManager.todoList)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setTintColor()
-                
-        if let stored = defaults.array(forKey: K.UserDefaults.todoList) as? [Item] {
-            itemArray = stored
-        }
+        
+        print(dataFilePath as Any)
+        
+        //        if let stored = defaults.array(forKey: K.UserDefaults.todoList) as? [Item] {
+        //            itemArray = stored
+        //        }
         
     }
     
@@ -36,7 +37,7 @@ class TodoListViewController: UITableViewController {
         
         // < Modal Body >
         // likes element.setAttribute('attribute', 'value')
-        alert.addTextField { textField in   // likes <input type="text" placeholder="Create new item">
+        alert.addTextField { textField in // likes <input type="text" placeholder="Create new item">
             textField.placeholder = "Create new item"
             inputText = textField
         }
@@ -47,8 +48,8 @@ class TodoListViewController: UITableViewController {
             // what will happen once the user clicks the Add Todoey button on our UIAlert
             guard let newTodoey = inputText.text, inputText.text != "" else { return }
             self.itemArray.append(Item(title: newTodoey))
-            self.defaults.set(self.itemArray, forKey: K.UserDefaults.todoList)
-            self.tableView.reloadData()
+            
+            self.saveTodoey()
         }
         
         // likes element.addEventListener('click', () => {}), in this case, element.addEventListener('click', action)
@@ -88,7 +89,7 @@ extension TodoListViewController {
         cell.textLabel?.text = item.title
         
         // Must use 'cell.accessoryType', not 'tableView.cellForRow(at: indexPath)?.accessoryType'
-//        tableView.cellForRow(at: indexPath)?.accessoryType = itemArray[indexPath.row].done ? .checkmark : .none
+        //        tableView.cellForRow(at: indexPath)?.accessoryType = itemArray[indexPath.row].done ? .checkmark : .none
         cell.accessoryType = item.done ? .checkmark : .none
         
         return cell
@@ -100,7 +101,25 @@ extension TodoListViewController {
 extension TodoListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
-        tableView.reloadData()  // !important, this call 'Tableview Datasource Methods'
+        tableView.reloadData() // !important, this call 'Tableview Datasource Methods'
         tableView.deselectRow(at: indexPath, animated: true)
     }
+}
+
+// MARK: Control FileManager
+
+extension TodoListViewController {
+
+    func saveTodoey() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+        } catch {
+            print("Error encoding item array, \(error)")
+        }
+        
+        tableView.reloadData()
+    }
+
 }
