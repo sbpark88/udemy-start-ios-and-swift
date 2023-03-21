@@ -10,12 +10,19 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-    var itemArray = ["Find Mike", "Buy Eggos", "destroy Demogorgon"]
+    var itemArray = [String]()
+    
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setTintColor()
+        
+        
+        if let stored = defaults.array(forKey: K.UserDefaults.todoList) as? [String] {
+            itemArray = stored
+        }
         
     }
     
@@ -40,6 +47,7 @@ class TodoListViewController: UITableViewController {
             // what will happen once the user clicks the Add Todoey button on our UIAlert
             guard let newTodoey = inputText.text, inputText.text != "" else { return }
             self.itemArray.append(newTodoey)
+            self.defaults.set(self.itemArray, forKey: K.UserDefaults.todoList)
             self.tableView.reloadData()
         }
         
