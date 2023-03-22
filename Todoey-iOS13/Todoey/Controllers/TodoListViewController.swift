@@ -7,21 +7,24 @@
 //
 
 import UIKit
+import CoreData
 
 class TodoListViewController: UITableViewController {
     
     var itemArray = [TodoeyItem]()
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?
-        .appendingPathComponent(K.FileManager.todoList)
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setTintColor()
-        
+                
+                
+        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+
         print(dataFilePath as Any)
-        
-        loadTodoey()
+//        loadTodoey()
         
     }
     
@@ -45,7 +48,9 @@ class TodoListViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { action in
             // what will happen once the user clicks the Add Todoey button on our UIAlert
             guard let newTodoey = inputText.text, inputText.text != "" else { return }
-            self.itemArray.append(TodoeyItem(title: newTodoey))
+            let item = TodoeyItem(context: self.context)
+            item.title = newTodoey
+            self.itemArray.append(item)
             
             self.saveTodoey()
         }
@@ -105,28 +110,30 @@ extension TodoListViewController {
     }
 }
 
-// MARK: Control FileManager
+// MARK: Control Core Data
 
 extension TodoListViewController {
 
     func saveTodoey() {
-        let encoder = PropertyListEncoder()
-        
-        try? encoder.encode(itemArray)
-            .write(to: dataFilePath!)
-        
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context \(error)")
+        }
         tableView.reloadData()
     }
     
-    func loadTodoey() {
-        guard let data = try? Data(contentsOf: dataFilePath!) else { return }
-        let decoder = PropertyListDecoder()
-        do {
-            itemArray = try decoder.decode([TodoeyItem].self, from: data)
-        } catch {
-            print("Error decoding item array, \(error)")
-        }
-        
-    }
+
+//    func loadTodoey() {
+//        guard let data = try? Data(contentsOf: dataFilePath!) else { return }
+//        let decoder = PropertyListDecoder()
+//        do {
+//            itemArray = try decoder.decode([TodoeyItem].self, from: data)
+//
+//        } catch {
+//            print("Error decoding item array, \(error)")
+//        }
+//
+//    }
 
 }
