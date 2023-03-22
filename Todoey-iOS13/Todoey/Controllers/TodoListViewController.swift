@@ -111,12 +111,9 @@ extension TodoListViewController {
 
     func saveTodoey() {
         let encoder = PropertyListEncoder()
-        do {
-            let data = try encoder.encode(itemArray)
-            try data.write(to: dataFilePath!)
-        } catch {
-            print("Error encoding item array, \(error)")
-        }
+        
+        try? encoder.encode(itemArray)
+            .write(to: dataFilePath!)
         
         tableView.reloadData()
     }

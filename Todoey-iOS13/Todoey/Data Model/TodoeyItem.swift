@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TodoeyItem: Encodable, Decodable {
+class TodoeyItem: Codable {
     
     var title: String
     var done: Bool = false
