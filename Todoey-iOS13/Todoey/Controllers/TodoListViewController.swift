@@ -10,7 +10,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-    var itemArray = [Item]()
+    var itemArray = [TodoeyItem]()
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?
         .appendingPathComponent(K.FileManager.todoList)
     
@@ -21,9 +21,7 @@ class TodoListViewController: UITableViewController {
         
         print(dataFilePath as Any)
         
-        //        if let stored = defaults.array(forKey: K.UserDefaults.todoList) as? [Item] {
-        //            itemArray = stored
-        //        }
+        loadTodoey()
         
     }
     
@@ -47,7 +45,7 @@ class TodoListViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { action in
             // what will happen once the user clicks the Add Todoey button on our UIAlert
             guard let newTodoey = inputText.text, inputText.text != "" else { return }
-            self.itemArray.append(Item(title: newTodoey))
+            self.itemArray.append(TodoeyItem(title: newTodoey))
             
             self.saveTodoey()
         }
@@ -101,6 +99,7 @@ extension TodoListViewController {
 extension TodoListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        saveTodoey()
         tableView.reloadData() // !important, this call 'Tableview Datasource Methods'
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -120,6 +119,17 @@ extension TodoListViewController {
         }
         
         tableView.reloadData()
+    }
+    
+    func loadTodoey() {
+        guard let data = try? Data(contentsOf: dataFilePath!) else { return }
+        let decoder = PropertyListDecoder()
+        do {
+            itemArray = try decoder.decode([TodoeyItem].self, from: data)
+        } catch {
+            print("Error decoding item array, \(error)")
+        }
+        
     }
 
 }
