@@ -105,8 +105,19 @@ extension TodoListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         saveTodoey()
-        tableView.reloadData() // !important, this call 'Tableview Datasource Methods'
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, true) in
+            let deleteTarget = self.itemArray[indexPath.row]
+            self.itemArray.remove(at: indexPath.row)
+            self.deleteTodoey(deleteTarget)
+        }
+        deleteAction.backgroundColor = .red
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
     }
 }
 
@@ -131,6 +142,16 @@ extension TodoListViewController {
         } catch {
             print("Error fetching data from context \(error)")
         }
+    }
+    
+    func deleteTodoey(_ todoey: TodoeyItem) {
+        do {
+            context.delete(todoey)
+            try context.save()
+        } catch {
+            print("Error delete data from context \(error)")
+        }
+        tableView.reloadData()
     }
 
 }
