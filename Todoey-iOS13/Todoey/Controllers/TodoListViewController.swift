@@ -20,11 +20,11 @@ class TodoListViewController: UITableViewController {
         // Do any additional setup after loading the view.
         setTintColor()
                 
-                
-        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-
-        print(dataFilePath as Any)
-//        loadTodoey()
+        // Core Data SQLite directory
+//        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        print(dataFilePath as Any)
+        
+        loadTodoey()
         
     }
     
@@ -104,7 +104,6 @@ extension TodoListViewController {
 extension TodoListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
-        saveTodoey()
         tableView.reloadData() // !important, this call 'Tableview Datasource Methods'
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -124,16 +123,13 @@ extension TodoListViewController {
     }
     
 
-//    func loadTodoey() {
-//        guard let data = try? Data(contentsOf: dataFilePath!) else { return }
-//        let decoder = PropertyListDecoder()
-//        do {
-//            itemArray = try decoder.decode([TodoeyItem].self, from: data)
-//
-//        } catch {
-//            print("Error decoding item array, \(error)")
-//        }
-//
-//    }
+    func loadTodoey() {
+        let request: NSFetchRequest<TodoeyItem> = TodoeyItem.fetchRequest()
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+    }
 
 }
