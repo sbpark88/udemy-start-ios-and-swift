@@ -104,6 +104,7 @@ extension TodoListViewController {
 extension TodoListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        saveTodoey()
         tableView.reloadData() // !important, this call 'Tableview Datasource Methods'
         tableView.deselectRow(at: indexPath, animated: true)
     }
