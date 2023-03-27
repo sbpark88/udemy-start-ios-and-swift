@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TodoListViewController: UITableViewController {
+class TodoListViewController: UITableViewController, UISearchBarDelegate, UIPickerViewDelegate, UIImagePickerControllerDelegate {
     
     var itemArray = [TodoeyItem]()
     
@@ -19,10 +19,10 @@ class TodoListViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setTintColor()
-                
+        
         // Core Data SQLite directory
-//        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//        print(dataFilePath as Any)
+        //        let dataFilePath = FileFManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        //        print(dataFilePath as Any)
         
         loadTodoey()
         
@@ -47,7 +47,7 @@ class TodoListViewController: UITableViewController {
         // just function
         let action = UIAlertAction(title: "Add Item", style: .default) { action in
             // what will happen once the user clicks the Add Todoey button on our UIAlert
-            guard let newTodoey = inputText.text, inputText.text != "" else { return }
+            guard let newTodoey = inputText.text, newTodoey != "" else { return }
             let item = TodoeyItem(context: self.context)
             item.title = newTodoey
             self.itemArray.append(item)
@@ -124,7 +124,7 @@ extension TodoListViewController {
 // MARK: Control Core Data
 
 extension TodoListViewController {
-
+    
     func saveTodoey() {
         do {
             try context.save()
@@ -134,14 +134,13 @@ extension TodoListViewController {
         tableView.reloadData()
     }
     
-
-    func loadTodoey() {
-        let request: NSFetchRequest<TodoeyItem> = TodoeyItem.fetchRequest()
+    func loadTodoey(with request: NSFetchRequest<TodoeyItem> = TodoeyItem.fetchRequest()) {
         do {
             itemArray = try context.fetch(request)
         } catch {
             print("Error fetching data from context \(error)")
         }
+        tableView.reloadData()
     }
     
     func deleteTodoey(_ todoey: TodoeyItem) {
@@ -153,5 +152,21 @@ extension TodoListViewController {
         }
         tableView.reloadData()
     }
+    
+}
 
+// MARK: UISearchBar
+
+extension TodoListViewController {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchingText = searchBar.text, !searchingText.isEmpty else { return loadTodoey() }
+        
+        let request: NSFetchRequest<TodoeyItem> = TodoeyItem.fetchRequest()
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchingText)
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        loadTodoey(with: request)
+    }
+    
 }
