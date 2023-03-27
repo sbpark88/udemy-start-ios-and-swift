@@ -160,13 +160,22 @@ extension TodoListViewController {
 extension TodoListViewController {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchingText = searchBar.text, !searchingText.isEmpty else { return loadTodoey() }
-        
         let request: NSFetchRequest<TodoeyItem> = TodoeyItem.fetchRequest()
-        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchingText)
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
         loadTodoey(with: request)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadTodoey()
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        } else {
+            searchBarSearchButtonClicked(searchBar)
+        }
     }
     
 }
