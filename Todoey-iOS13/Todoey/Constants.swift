@@ -32,4 +32,8 @@ struct K {
             static let button = "Add Item"
         }
     }
+    
+    struct Segue {
+        static let categoryViewToTodoListView = "goToItems"
+    }
 }
