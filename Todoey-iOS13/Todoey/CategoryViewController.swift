@@ -19,6 +19,9 @@ class CategoryViewController: UITableViewController, TintSettings {
         super.viewDidLoad()
         setTintColor()
         loadCategory()
+        
+        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print(dataFilePath)
     }
     
     // MARK: TableView Manipulation Methods
@@ -83,7 +86,11 @@ extension CategoryViewController {
 extension CategoryViewController {
     
     func saveCategory() {
-        // TODO: Save the data into Core Data
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context \(context)")
+        }
         tableView.reloadData()
     }
     
