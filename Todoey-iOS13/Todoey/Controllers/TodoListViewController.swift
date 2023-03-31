@@ -13,17 +13,18 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate, UIPick
     
     var itemArray = [TodoeyItem]()
     
+    var selectedCategory: Category? {
+        didSet {
+            loadTodoey()
+        }
+    }
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setTintColor()
-        
-        // Core Data SQLite directory
-        //        let dataFilePath = FileFManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        //        print(dataFilePath as Any)
-        
         loadTodoey()
         
     }
@@ -45,11 +46,12 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate, UIPick
         
         // Modal Footer Button
         // just function
-        let action = UIAlertAction(title: K.TodoListView.alert.button, style: .default) { action in
+        let action = UIAlertAction(title: K.TodoListView.alert.button, style: .default) { [unowned self] action in
             // what will happen once the user clicks the Add Todoey button on our UIAlert
             guard let newTodoey = inputText.text, newTodoey != "" else { return }
             let item = TodoeyItem(context: self.context)
             item.title = newTodoey
+            item.parentCategory = self.selectedCategory
             self.itemArray.append(item)
             
             self.saveTodoey()
@@ -60,7 +62,6 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate, UIPick
         
         // likes element.appendChild(), in this case, element.appendChild(alert)
         present(alert, animated: true, completion: nil)
-        
     }
     
 }
@@ -121,7 +122,14 @@ extension TodoListViewController {
         tableView.reloadData()
     }
     
-    func loadTodoey(with request: NSFetchRequest<TodoeyItem> = TodoeyItem.fetchRequest()) {
+    func loadTodoey(with request: NSFetchRequest<TodoeyItem> = TodoeyItem.fetchRequest(), predicate: NSPredicate? = nil) {
+        let defaultPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        if let predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [defaultPredicate, predicate])
+        } else {
+            request.predicate = defaultPredicate
+        }
+        
         do {
             itemArray = try context.fetch(request)
         } catch {
@@ -148,10 +156,10 @@ extension TodoListViewController {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let request: NSFetchRequest<TodoeyItem> = TodoeyItem.fetchRequest()
-        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
-        loadTodoey(with: request)
+        loadTodoey(with: request, predicate: predicate)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

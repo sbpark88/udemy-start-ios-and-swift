@@ -19,6 +19,9 @@ class CategoryViewController: UITableViewController, TintSettings {
         super.viewDidLoad()
         setTintColor()
         loadCategory()
+        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+
+        print(dataFilePath as Any)
     }
 
     // MARK: TableView Manipulation Methods
@@ -75,6 +78,12 @@ extension CategoryViewController {
 extension CategoryViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: K.Segue.categoryViewToTodoListView, sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TodoListViewController
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        destinationVC.selectedCategory = categories[indexPath.row]
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
