@@ -20,7 +20,6 @@ class CategoryViewController: UITableViewController, TintSettings {
         setTintColor()
         loadCategory()
         let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-
         print(dataFilePath as Any)
     }
 

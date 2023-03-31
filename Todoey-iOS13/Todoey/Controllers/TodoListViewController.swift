@@ -26,7 +26,6 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate, UIPick
         // Do any additional setup after loading the view.
         setTintColor()
         loadTodoey()
-        
     }
     
     @IBAction func AddTodoey(_ sender: UIBarButtonItem) {
