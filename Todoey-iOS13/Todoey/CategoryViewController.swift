@@ -39,13 +39,13 @@ class CategoryViewController: UITableViewController, TintSettings {
             inputText = textField
         }
 
-        let action = UIAlertAction(title: K.CategoryView.alert.button, style: .default) { action in
+        let action = UIAlertAction(title: K.CategoryView.alert.button, style: .default) { [weak self] action in
             guard let newCategory = inputText.text, !newCategory.isEmpty else { return }
-            let category = Category(context: self.context)
+            let category = Category(context: self!.context)
             category.name = newCategory
-            self.categories.append(category)
+            self?.categories.append(category)
 
-            self.saveCategory()
+            self?.saveCategory()
         }
 
         alert.addAction(action)
@@ -86,10 +86,10 @@ extension CategoryViewController {
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, true) in
-            let deleteTarget = self.categories[indexPath.row]
-            self.categories.remove(at: indexPath.row)
-            self.deleteCategory(deleteTarget)
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, true) in
+            guard let deleteTarget = self?.categories[indexPath.row] else { return }
+            self?.categories.remove(at: indexPath.row)
+            self?.deleteCategory(deleteTarget)
         }
         deleteAction.backgroundColor = .red
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])

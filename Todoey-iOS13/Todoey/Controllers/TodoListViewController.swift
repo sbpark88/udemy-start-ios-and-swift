@@ -45,15 +45,15 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate, UIPick
         
         // Modal Footer Button
         // just function
-        let action = UIAlertAction(title: K.TodoListView.alert.button, style: .default) { [unowned self] action in
+        let action = UIAlertAction(title: K.TodoListView.alert.button, style: .default) { [weak self] action in
             // what will happen once the user clicks the Add Todoey button on our UIAlert
             guard let newTodoey = inputText.text, newTodoey != "" else { return }
-            let item = TodoeyItem(context: self.context)
+            let item = TodoeyItem(context: self!.context)
             item.title = newTodoey
-            item.parentCategory = self.selectedCategory
-            self.itemArray.append(item)
+            item.parentCategory = self?.selectedCategory
+            self?.itemArray.append(item)
             
-            self.saveTodoey()
+            self?.saveTodoey()
         }
         
         // likes element.addEventListener('click', () => {}), in this case, element.addEventListener('click', action)
@@ -96,10 +96,10 @@ extension TodoListViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, true) in
-            let deleteTarget = self.itemArray[indexPath.row]
-            self.itemArray.remove(at: indexPath.row)
-            self.deleteTodoey(deleteTarget)
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, true) in
+            guard let deleteTarget = self?.itemArray[indexPath.row] else { return }
+            self?.itemArray.remove(at: indexPath.row)
+            self?.deleteTodoey(deleteTarget)
         }
         deleteAction.backgroundColor = .red
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
