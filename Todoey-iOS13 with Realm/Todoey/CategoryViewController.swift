@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class CategoryViewController: UITableViewController, TintSettings {
 
-    var categories = [Category]()
+    let realm = try! Realm()
 
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var categories: Results<Category>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +41,10 @@ class CategoryViewController: UITableViewController, TintSettings {
 
         let action = UIAlertAction(title: K.CategoryView.alert.button, style: .default) { [weak self] action in
             guard let newCategory = inputText.text, !newCategory.isEmpty else { return }
-            let category = Category(context: self!.context)
+            let category = Category()
             category.name = newCategory
-            self?.categories.append(category)
 
-            self?.saveCategory()
+            self?.save(category: category)
         }
 
         alert.addAction(action)
@@ -59,15 +58,12 @@ class CategoryViewController: UITableViewController, TintSettings {
 
 extension CategoryViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        categories.count
+        categories?.count ?? 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.CategoryView.cellName, for: indexPath)
-        let category = categories[indexPath.row]
-
-        cell.textLabel?.text = category.name
-
+        cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added Yet"
         return cell
     }
 }
@@ -78,17 +74,16 @@ extension CategoryViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: K.Segue.categoryViewToTodoListView, sender: self)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! TodoListViewController
         guard let indexPath = tableView.indexPathForSelectedRow else { return }
-        destinationVC.selectedCategory = categories[indexPath.row]
+        destinationVC.selectedCategory = categories?[indexPath.row]
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, true) in
-            guard let deleteTarget = self?.categories[indexPath.row] else { return }
-            self?.categories.remove(at: indexPath.row)
+            guard let deleteTarget = self?.categories?[indexPath.row] else { return }
             self?.deleteCategory(deleteTarget)
         }
         deleteAction.backgroundColor = .red
@@ -98,36 +93,34 @@ extension CategoryViewController {
     }
 }
 
-// MARK: Control Core Data
+// MARK: Control Realm
 
 extension CategoryViewController {
 
-    func saveCategory() {
+    func save(category: Category) {
         do {
-            try context.save()
+            try realm.write {
+                realm.add(category)
+            }
         } catch {
-            print("Error saving context \(context)")
+            print("Error saving realm \(error)")
         }
         tableView.reloadData()
     }
 
-    func loadCategory(with request: NSFetchRequest<Category> = Category.fetchRequest()) {
-        do {
-            categories = try context.fetch(request)
-        } catch {
-            print("Error fetching data from context \(error)")
-        }
+    func loadCategory() {
+        categories = realm.objects(Category.self)
         tableView.reloadData()
     }
 
     func deleteCategory(_ category: Category) {
         do {
-            context.delete(category)
-            try context.save()
+            try realm.write {
+                realm.delete(category)
+            }
         } catch {
-            print("Error delete data from context \(error)")
+            print("Error deleting from realm, \(error)")
         }
-
         tableView.reloadData()
     }
 

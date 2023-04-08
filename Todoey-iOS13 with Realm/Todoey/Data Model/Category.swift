@@ -6,9 +6,9 @@
 //  Copyright © 2023 App Brewery. All rights reserved.
 //
 
-import CoreData
+import RealmSwift
 
-@objc(Category)
-public class Category: NSManagedObject {
-    
+class Category: Object {
+    @objc dynamic var name: String = ""
+    let items = List<TodoeyItem>()
 }
