@@ -9,6 +9,6 @@
 import RealmSwift
 
 class Category: Object {
-    @objc dynamic var name: String = ""
-    let items = List<TodoeyItem>()
+    @Persisted var name: String = ""
+    @Persisted var items: List<TodoeyItem>
 }

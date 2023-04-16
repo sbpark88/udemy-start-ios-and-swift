@@ -9,7 +9,8 @@
 import RealmSwift
 
 class TodoeyItem: Object {
-    @objc dynamic var title: String = ""
-    @objc dynamic var done: Bool = false
-    var parentCategory = LinkingObjects(fromType: Category.self, property: "items")
+    @Persisted var title: String = ""
+    @Persisted var done: Bool = false
+    @Persisted var dateCreated: Date?
+    @Persisted(originProperty: "items") var parentCategory: LinkingObjects<Category>
 }

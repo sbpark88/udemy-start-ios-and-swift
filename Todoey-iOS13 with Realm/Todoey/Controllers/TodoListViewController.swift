@@ -52,6 +52,7 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate, UIPick
                 try self?.realm.write {
                     let todoey = TodoeyItem()
                     todoey.title = newTodoey
+                    todoey.dateCreated = Date()
                     parentCategory.items.append(todoey)
                 }
             } catch {
@@ -132,7 +133,7 @@ extension TodoListViewController {
 extension TodoListViewController {
     
     func loadTodoey() {
-        todoeyItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        todoeyItems = selectedCategory?.items.sorted(byKeyPath: "dateCreated", ascending: true)
         tableView.reloadData()
     }
     
@@ -143,16 +144,16 @@ extension TodoListViewController {
 extension TodoListViewController {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        //        let request: NSFetchRequest<TodoeyItem> = TodoeyItem.fetchRequest()
-        //        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-        //        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-        //
-        //        loadTodoey(with: request, predicate: predicate)
+        print(searchBar.text!)
+        todoeyItems = todoeyItems?.filter("title CONTAINS[cd] %@", searchBar.text!)
+            .sorted(byKeyPath: "dateCreated", ascending: true)
+        
+        tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
-            //            loadTodoey()
+            loadTodoey()
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
@@ -162,3 +163,4 @@ extension TodoListViewController {
     }
     
 }
+
