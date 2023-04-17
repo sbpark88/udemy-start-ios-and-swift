@@ -14,8 +14,6 @@ struct K {
     }
     
     struct CategoryView {
-        static let cellName = "CategoryCell"
-        
         struct alert {
             static let title = "Add New Todoey Category"
             static let placeholder = "Create new category"
@@ -24,8 +22,6 @@ struct K {
     }
     
     struct TodoListView {
-        static let cellName = "ToDoItemCell"
-        
         struct alert {
             static let title = "Add New Todoey Item"
             static let placeholder = "Create new item"
