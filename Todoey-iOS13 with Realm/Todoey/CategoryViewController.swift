@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
 class CategoryViewController: UITableViewController, TintSettings {
     
@@ -19,14 +20,13 @@ class CategoryViewController: UITableViewController, TintSettings {
         super.viewDidLoad()
         setTintColor()
         loadCategory()
-        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        tableView.rowHeight = 80.0
     }
     
     // MARK: TableView Manipulation Methods
     
     
     // MARK: Add New Categories
-    // TODO: Extract to external structure
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
         var inputText = UITextField()
@@ -61,8 +61,9 @@ extension CategoryViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.CategoryView.cellName, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.CategoryView.cellName, for: indexPath) as! SwipeTableViewCell
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added Yet"
+        cell.delegate = self
         return cell
     }
 }
@@ -80,15 +81,49 @@ extension CategoryViewController {
         destinationVC.selectedCategory = categories?[indexPath.row]
     }
     
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, true) in
+    // Replace to Swipe Cell Kit
+//    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, true) in
+//            guard let deleteTarget = self?.categories?[indexPath.row] else { return }
+//            self?.deleteCategory(deleteTarget)
+//        }
+//        deleteAction.backgroundColor = .red
+//        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+//        configuration.performsFirstActionWithFullSwipe = false
+//        return configuration
+//    }
+    
+}
+
+// MARK: Swipe Cell Delegate Methods
+
+extension CategoryViewController: SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { [weak self] action, indexPath in
+            // handle action by updating model with deletion
             guard let deleteTarget = self?.categories?[indexPath.row] else { return }
-            self?.deleteCategory(deleteTarget)
+            do {
+                try self?.realm.write {
+                    self?.realm.delete(deleteTarget)
+                }
+            } catch {
+                print("Error deleting from realm, \(error)")
+            }
         }
-        deleteAction.backgroundColor = .red
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        configuration.performsFirstActionWithFullSwipe = false
-        return configuration
+        
+        // customize the action appearance
+        deleteAction.image = UIImage(named: "delete-icon")
+        
+        return [deleteAction]
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .destructive
+        options.transitionStyle = .border
+        return options
     }
 }
 
@@ -109,17 +144,6 @@ extension CategoryViewController {
     
     func loadCategory() {
         categories = realm.objects(Category.self)
-        tableView.reloadData()
-    }
-    
-    func deleteCategory(_ category: Category) {
-        do {
-            try realm.write {
-                realm.delete(category)
-            }
-        } catch {
-            print("Error deleting from realm, \(error)")
-        }
         tableView.reloadData()
     }
     

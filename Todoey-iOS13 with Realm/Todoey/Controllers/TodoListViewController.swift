@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
 class TodoListViewController: UITableViewController, UISearchBarDelegate, UIPickerViewDelegate, UIImagePickerControllerDelegate, TintSettings {
     
@@ -25,6 +26,7 @@ class TodoListViewController: UITableViewController, UISearchBarDelegate, UIPick
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setTintColor()
+        tableView.rowHeight = 80.0
     }
     
     @IBAction func AddTodoey(_ sender: UIBarButtonItem) {
@@ -79,14 +81,14 @@ extension TodoListViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.TodoListView.cellName, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.TodoListView.cellName, for: indexPath) as! SwipeTableViewCell
         if let item = todoeyItems?[indexPath.row] {
             cell.textLabel?.text = item.title
             cell.accessoryType = item.done ? .checkmark : .none
         } else {
             cell.textLabel?.text = "No Toeody Added Yet"
         }
-        
+        cell.delegate = self
         return cell
     }
 }
@@ -107,24 +109,58 @@ extension TodoListViewController {
         tableView.reloadData()
     }
     
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, true) in
+    // Replace to Swipe Cell Kit
+//    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, true) in
+//            guard let deleteTarget = self?.todoeyItems?[indexPath.row] else { return }
+//
+//            do {
+//                try self?.realm.write {
+//                    self?.realm.delete(deleteTarget)
+//                }
+//
+//            } catch {
+//                print("Error deleting from realm, \(error)")
+//            }
+//            tableView.reloadData()
+//        }
+//        deleteAction.backgroundColor = .red
+//        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+//        configuration.performsFirstActionWithFullSwipe = false
+//        return configuration
+//    }
+    
+}
+
+// MARK: Swipe Cell Delegate Methods
+
+extension TodoListViewController: SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { [weak self] action, indexPath in
+            // handle action by updating model with deletion
             guard let deleteTarget = self?.todoeyItems?[indexPath.row] else { return }
-            
             do {
                 try self?.realm.write {
                     self?.realm.delete(deleteTarget)
                 }
-                
             } catch {
                 print("Error deleting from realm, \(error)")
             }
-            tableView.reloadData()
         }
-        deleteAction.backgroundColor = .red
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        configuration.performsFirstActionWithFullSwipe = false
-        return configuration
+        
+        // customize the action appearance
+        deleteAction.image = UIImage(named: "delete-icon")
+        
+        return [deleteAction]
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .destructive
+        options.transitionStyle = .border
+        return options
     }
 }
 
