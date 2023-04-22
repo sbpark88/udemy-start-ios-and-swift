@@ -10,5 +10,8 @@ target 'Todoey' do
 
   # Swipe Cell Kit
   pod 'SwipeCellKit'
+  
+  # Chameleon Framework
+  pod 'ChameleonFramework/Swift', :git => 'https://github.com/wowansm/Chameleon.git', :branch => 'swift5'
 
 end
