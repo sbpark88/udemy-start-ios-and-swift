@@ -10,15 +10,15 @@ import Foundation
 import UIKit
 
 protocol TintSettings: UITableViewController {
-    func setTintColor()
+    func setTintColor(backgroundColor: UIColor?, titleTextColor: UIColor?)
 }
 
 extension TintSettings {
-    func setTintColor() {
+    func setTintColor(backgroundColor: UIColor? = UIColor.cyan, titleTextColor: UIColor? = UIColor.white) {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = UIColor.cyan
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.backgroundColor = backgroundColor
+        appearance.titleTextAttributes = [.foregroundColor: titleTextColor!]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
     }

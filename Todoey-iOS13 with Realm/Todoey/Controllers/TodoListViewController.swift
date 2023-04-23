@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class TodoListViewController: SwipeTableViewController, UISearchBarDelegate, UIPickerViewDelegate, UIImagePickerControllerDelegate {
     
@@ -24,6 +25,17 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate, UIP
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         tableView.rowHeight = 80.0
+        tableView.separatorStyle = .none
+        let selectedBackgroundColor = UIColor(hexString: selectedCategory!.colour)
+        setTintColor(backgroundColor: selectedBackgroundColor,
+                     titleTextColor: ContrastColorOf(selectedBackgroundColor!, returnFlat: true))
+        tableView.backgroundColor = selectedBackgroundColor
+//        title = selectedCategory!.name    // 여기다 써도 되는데 다른 viewWillAppear 에 넣어보자...
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        guard let selectedCategory else { return }
+        title = selectedCategory.name
     }
     
     // MARK: Delete Data From Swipe
@@ -45,18 +57,18 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate, UIP
         
         // < Modal Header >
         // likes document.createElement()
-        let alert = UIAlertController(title: K.TodoListView.alert.title, message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: K.TodoListView.Alert.title, message: "", preferredStyle: .alert)
         
         // < Modal Body >
         // likes element.setAttribute('attribute', 'value')
         alert.addTextField { textField in // likes <input type="text" placeholder="Create new item">
-            textField.placeholder = K.TodoListView.alert.placeholder
+            textField.placeholder = K.TodoListView.Alert.placeholder
             inputText = textField
         }
         
         // Modal Footer Button
         // just function
-        let action = UIAlertAction(title: K.TodoListView.alert.button, style: .default) { [weak self] action in
+        let action = UIAlertAction(title: K.TodoListView.Alert.button, style: .default) { [weak self] action in
             // what will happen once the user clicks the Add Todoey button on our UIAlert
             guard let parentCategory = self?.selectedCategory else { return }
             guard let newTodoey = inputText.text, newTodoey != "" else { return }
@@ -83,7 +95,7 @@ class TodoListViewController: SwipeTableViewController, UISearchBarDelegate, UIP
     
 }
 
-// MARK - Tableview Datasource Methods
+// MARK: Tableview Datasource Methods
 
 extension TodoListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -92,9 +104,14 @@ extension TodoListViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        if let item = todoeyItems?[indexPath.row] {
+        if let parentCategory = self.selectedCategory, let item = todoeyItems?[indexPath.row] {
             cell.textLabel?.text = item.title
             cell.accessoryType = item.done ? .checkmark : .none
+            
+            // Style
+            let darkenessRatio = CGFloat(indexPath.row) / CGFloat(todoeyItems?.count ?? 1) * 0.6  // Prevent getting too dark
+            cell.backgroundColor = UIColor(hexString: parentCategory.colour)?.darken(byPercentage: darkenessRatio)
+            cell.textLabel?.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
         } else {
             cell.textLabel?.text = "No Toeody Added Yet"
         }

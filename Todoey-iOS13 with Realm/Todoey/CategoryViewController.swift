@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class CategoryViewController: SwipeTableViewController {
     
@@ -19,6 +20,7 @@ class CategoryViewController: SwipeTableViewController {
         super.viewDidLoad()
         loadCategory()
         tableView.rowHeight = 80.0
+        tableView.separatorStyle = .none
     }
     
     // MARK: Delete Data From Swipe
@@ -40,17 +42,18 @@ class CategoryViewController: SwipeTableViewController {
         
         var inputText = UITextField()
         
-        let alert = UIAlertController(title: K.CategoryView.alert.title, message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: K.CategoryView.Alert.title, message: "", preferredStyle: .alert)
         
         alert.addTextField { textField in
-            textField.placeholder = K.CategoryView.alert.placeholder
+            textField.placeholder = K.CategoryView.Alert.placeholder
             inputText = textField
         }
         
-        let action = UIAlertAction(title: K.CategoryView.alert.button, style: .default) { [weak self] action in
+        let action = UIAlertAction(title: K.CategoryView.Alert.button, style: .default) { [weak self] action in
             guard let newCategory = inputText.text, !newCategory.isEmpty else { return }
             let category = Category()
             category.name = newCategory
+            category.colour = UIColor.randomFlat().hexValue()
             
             self?.save(category: category)
         }
@@ -72,6 +75,7 @@ extension CategoryViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added Yet"
+        cell.contentView.backgroundColor = UIColor(hexString: categories?[indexPath.row].colour ?? K.Colour.Cell.defaultColor)
         return cell
     }
 }

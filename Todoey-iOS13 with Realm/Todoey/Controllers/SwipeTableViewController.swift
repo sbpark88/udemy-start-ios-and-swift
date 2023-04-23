@@ -9,7 +9,7 @@
 import UIKit
 import SwipeCellKit
 
-class SwipeTableViewController: UITableViewController, TintSettings {
+class SwipeTableViewController: UITableViewController, TintSettings {    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,7 @@ class SwipeTableViewController: UITableViewController, TintSettings {
     }
 }
 
-// MARK - Tableview Datasource Methods
+// MARK: Tableview Datasource Methods
 
 extension SwipeTableViewController {
     
