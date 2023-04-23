@@ -76,6 +76,7 @@ extension CategoryViewController {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added Yet"
         cell.contentView.backgroundColor = UIColor(hexString: categories?[indexPath.row].colour ?? K.Colour.Cell.defaultColor)
+        cell.textLabel?.textColor = ContrastColorOf(cell.contentView.backgroundColor!, returnFlat: true)
         return cell
     }
 }
